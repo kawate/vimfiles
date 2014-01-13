@@ -1,3 +1,58 @@
+" ##########################################################################
+" 2014-01-13 neobundleの設定
+" http://d.hatena.ne.jp/xyk/20130930/1380507307
+" http://www.slideshare.net/Shougo/neobundlevim
+" http://wp.graphact.com/2012/11/09/hello-neobundle-vim
+" ##########################################################################
+
+" vim起動時のみruntimepathにneobundle.vimを追加して
+" neobundle.vimを呼び出せるようにする
+if has('vim_starting')
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+endif
+
+" neobundle.vimの初期化
+call neobundle#rc(expand('~/.vim/bundle'))
+
+" NeoBundleを更新するための設定
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" ==========================================================================
+" 読み込むプラグインを記載
+" プラグインのリポジトリアドレスを指定する
+" - github, vim.org に存在するプラグインのアドレスは省略できる
+"   - 'Shougo/unite.vim' は 'git://github.com/Shougo/unite.vim.git' と同じ
+"   - 'CSApprox' のようにプラグイン名のみだとVim.orgのプラグインを表す
+
+NeoBundle 'Shougo/unite.vim'
+" NeoBundle 'itchyny/lightline.vim'
+
+" autocomplpop.vim: キーワード補完リストを自動で出す
+NeoBundle 'https://github.com/vim-scripts/AutoComplPop'
+
+"eblook.vim: eblookプログラムを使って辞書を引く
+NeoBundle 'https://github.com/deton/eblook.vim'
+"  昔のやり方:
+"     以下URLからダウンロード（eblook-vim-1.2.0.tar.bz2.tar.bz2）
+"     http://www1.interq.or.jp/~deton/eblook-vim/
+"     解凍したファイルをREADME.markdownを参考に移動
+"     ただし、Vimのバージョンアップで面倒にならないように runtime ではなく _runtime フォルダに移動
+
+" ※ 登録したプラグインの
+"    インストールは  :NeoBundleInstall
+"    アップデートは  :NeoBundleUpdate
+"    で行う。
+" ==========================================================================
+
+" 読み込んだプラグインも含め、ファイルタイプの検出、ファイルタイプ別プラグイン/インデントを有効化する
+filetype plugin indent on
+
+" インストールのチェック
+NeoBundleCheck
+
+" ##########################################################################
+
 
 " 2010-11-26 追加の runtime を置く場所を作成
 set runtimepath+=C:\Vim\_runtime
@@ -49,7 +104,8 @@ inoremap <C-D> <C-R>=strftime("%Y-%m-%d")<CR>
 " CTRL-Break(多くの環境では CTRL+Pause)をかわりに使ってください。
 " 同じように、矩形選択したい時には、CTRL-V のかわりにCTRL-Qを使ってください。
 " source $VIMRUNTIME/mswin.vim
-source C:\Vim\_runtime/mswin.vim " オリジナルをコピーしてカスタマイズ
+" source C:\Vim\_runtime/mswin.vim " オリジナルをコピーしてカスタマイズ
+source $VIMRUNTIME/mswin.vim " 2014-01-13 確認したところ標準と変わらないので元に戻す
 
 
 " 2008-02-16 タブの切替えを、Mozilla Firefox 風にする。
@@ -140,10 +196,19 @@ set statusline=%F%m%r%h%w\%=ft=%Y,fmt=%{&ff},enc=%{&fileencoding},line=%l/%L,col
 
 " ##########################################################################
 " バックアップ
+" http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html
 " ##########################################################################
 
 " バックアップファイルを作成する場所の指定
-set backupdir=c:/Vim/backup
+" set backupdir=c:/Vim/backup
+
+" 2014-01-13 ユーザごとに作成できるようにvimrcファイルと同じ場所に移動
+set backupdir=~/vimfiles/tmp/backup
+
+" .viminfo、_viminfoファイルは、コマンド、編集情報、検索情報、レジスタなどの 履歴情報を保存しているファイルです。
+" このファイルはvimエディタの終了時に作成され、次回のvimエディタ起動時に、 状態を復元するために使用されます。
+" 扱いやすいように出力場所とファイル名を変更
+set viminfo+=n~/vimfiles/tmp/viminfo.txt
 
 " ##########################################################################
 " tabstop と softtabstop
@@ -297,18 +362,18 @@ autocmd QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | cop
 "     使い方の参考: http://openlab.jp/edict/eblook/eblook.html#SEC2
 "
 "   eblook.vimのセットアップ
-"     以下URLからダウンロード（eblook-vim-1.2.0.tar.bz2.tar.bz2）
-"     http://www1.interq.or.jp/~deton/eblook-vim/
-"     解凍したファイルをREADME.markdownを参考に移動
-"     ただし、Vimのバージョンアップで面倒にならないように runtime ではなく _runtime フォルダに移動
 "     以下のように辞書ファイルをeblook.vimに登録
-let eblook_dictlist1 = [{'book': 'c:/Vim/eijiro/','name': 'eijiro','title': '英辞郎',}]
+"let eblook_dictlist1 = [{'book': 'c:/Vim/eijiro/','name': 'eijiro','title': '英辞郎',}]
+let eblook_dictlist1 = [{'book': 'c:/eblook/eijiro/','name': 'eijiro','title': '英辞郎',}]
 "     ※ 以下は最初うまく動かなかったときに、ダウンロードしたEPWINGファイルを使って試した設定
 "        データは http://openlab.ring.gr.jp/edict/fpw/#ascii からダウンロード
 "let eblook_dictlist1 = [{'book': 'c:/Vim/ASCDATES/','name': 'ascdates','title': 'アスキー手帳',}]
 
+
+" ##########################################################################
 " CMA3000のrctext(自動試験)のリモートコマンドスクリプトファイル
 " *.cmd や init をシェルスクリプトの形式として表示する
+" ##########################################################################
 au BufRead,BufNewFile *.cmd set filetype=sh
 au BufRead,BufNewFile *.ref set filetype=sh
 au BufRead,BufNewFile *.init set filetype=sh
