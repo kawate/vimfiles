@@ -6,6 +6,16 @@ Vimセットアップ手順
 Vim7.4をhttp://www.kaoriya.net/からダウンロード
 解凍してC:\Vimに移動
 
+
+--
+Git for windows
+http://msysgit.github.io/
+
+TortoiseGit
+https://code.google.com/p/tortoisegit/
+
+GitHub native app
+
 --
 以下のファイルをGitHubのリポジトリに移動
 https://github.com/kawate/vimfiles
@@ -17,6 +27,24 @@ GitHubのvimfilesフォルダのローカルリポジトリをVimが参照する場所に作成
     vimrc/gvimrcを探す場所と順番は:versionで確認できる
     $HOMEの実際の場所は、Vimを起動して:echo $HOMEで確認できる
 
+--
+設定ファイル一式の取得
+
+バックアップやviminfoを置く場所を作成
+コマンドプロンプトで以下のように実行
+
+>cd %userprofile%
+>git clone https://github.com/kawate/vimfiles
+>mdkir vimfiles\tmp
+>mkdir vimfiles\tmp\backup
+
+--
+neobundleをインストール
+コマンドプロンプトで以下のように実行
+
+mkdir %userprofile%\.vim\bundle
+cd %userprofile%\.vim\bundle
+git clone git://github.com/Shougo/neobundle.vim
 
 --
 *管理者権限で*コマンドプロンプトを開き、
