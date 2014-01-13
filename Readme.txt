@@ -8,12 +8,14 @@ Vimのインストール
 Vim7.4をhttp://www.kaoriya.net/からダウンロード
 解凍してC:\Vimに移動
 
-
 --
 Gitのインストール
 
-Git for windows
+Git for Windows
 http://msysgit.github.io/
+※ インストール時のオプションで、
+   「Run Git from the Windows Command Prompt」を選択する
+   （gitコマンドをPATHに追加する）
 
 TortoiseGit
 https://code.google.com/p/tortoisegit/
