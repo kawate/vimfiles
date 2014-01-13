@@ -3,11 +3,15 @@ Vimセットアップ手順
 ==========================================
 
 --
+Vimのインストール
+
 Vim7.4をhttp://www.kaoriya.net/からダウンロード
 解凍してC:\Vimに移動
 
 
 --
+Gitのインストール
+
 Git for windows
 http://msysgit.github.io/
 
@@ -15,6 +19,7 @@ TortoiseGit
 https://code.google.com/p/tortoisegit/
 
 GitHub native app
+https://help.github.com/articles/set-up-git
 
 --
 以下のファイルをGitHubのリポジトリに移動
