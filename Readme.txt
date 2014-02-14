@@ -37,12 +37,13 @@ GitHubのvimfilesフォルダのローカルリポジトリをVimが参照する場所に作成
 --
 設定ファイル一式の取得
 
-バックアップやviminfoを置く場所を作成
+設定ファイルを %userprofile% 下に置く。
+また、バックアップやviminfoを置く場所を作成する。
 コマンドプロンプトで以下のように実行
 
 >cd %userprofile%
 >git clone https://github.com/kawate/vimfiles
->mdkir vimfiles\tmp
+>mkdir vimfiles\tmp
 >mkdir vimfiles\tmp\backup
 >mkdir vimfiles\tmp\swap
 
