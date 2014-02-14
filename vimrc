@@ -39,6 +39,21 @@ NeoBundle 'https://github.com/deton/eblook.vim'
 "     解凍したファイルをREADME.markdownを参考に移動
 "     ただし、Vimのバージョンアップで面倒にならないように runtime ではなく _runtime フォルダに移動
 
+"Alin.vim: コードの整形ツール
+NeoBundle 'https://github.com/vim-scripts/Align'
+" 以下のようなコードを選択後 \tsp を入力すると
+" one two three four five
+" six seven eight nine ten
+" eleven twelve thirteen fourteen fifteen
+" 以下のように整形してくれる
+" one    two    three    four     five
+" six    seven  eight    nine     ten
+" eleven twelve thirteen fourteen fifteen
+" 詳しい使い方は
+" http://nanasi.jp/vim/align.html
+" などを参照
+
+
 " ※ 登録したプラグインの
 "    インストールは  :NeoBundleInstall
 "    アップデートは  :NeoBundleUpdate
