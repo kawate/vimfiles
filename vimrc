@@ -198,12 +198,14 @@ set statusline=%F%m%r%h%w\%=ft=%Y,fmt=%{&ff},enc=%{&fileencoding},line=%l/%L,col
 " バックアップ
 " http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html
 " ##########################################################################
+" 2014-01-13 ユーザごとに作成できるようにvimrcファイルと同じ場所に移動
 
 " バックアップファイルを作成する場所の指定
 " set backupdir=c:/Vim/backup
-
-" 2014-01-13 ユーザごとに作成できるようにvimrcファイルと同じ場所に移動
 set backupdir=~/vimfiles/tmp/backup
+
+" swapファイルを作成する場所の指定
+set directory=~/vimfiles/tmp/swap " 2014-02-14
 
 " .viminfo、_viminfoファイルは、コマンド、編集情報、検索情報、レジスタなどの 履歴情報を保存しているファイルです。
 " このファイルはvimエディタの終了時に作成され、次回のvimエディタ起動時に、 状態を復元するために使用されます。

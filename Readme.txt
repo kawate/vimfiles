@@ -44,6 +44,7 @@ GitHubのvimfilesフォルダのローカルリポジトリをVimが参照する場所に作成
 >git clone https://github.com/kawate/vimfiles
 >mdkir vimfiles\tmp
 >mkdir vimfiles\tmp\backup
+>mkdir vimfiles\tmp\swap
 
 --
 neobundleをインストール
