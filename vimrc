@@ -1,3 +1,12 @@
+"===============================================================================
+" NeoBundleによるVimのプラグイン管理
+"===============================================================================
+" プラグインをインストール:
+"   vimrc の NeoBundle で指定して、vim上から :NeoBundleInstall 
+" アップデート:
+"   vim上から :NeoBundleUpdate
+" プラグインを削除:
+"   vimrc から削除したいプラグインの NeoBundle の記述を消して、vim上から :NeoBundleClean を実行。
 " ##########################################################################
 " 2014-01-13 neobundleの設定
 " http://d.hatena.ne.jp/xyk/20130930/1380507307
@@ -5,32 +14,47 @@
 " http://wp.graphact.com/2012/11/09/hello-neobundle-vim
 " ##########################################################################
 
-" vim起動時のみruntimepathにneobundle.vimを追加して
-" neobundle.vimを呼び出せるようにする
+" vim起動時のみruntimepathにneobundle.vimを追加してneobundle.vimを呼び出せるようにする
 if has('vim_starting')
-  set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
-" neobundle.vimの初期化
-call neobundle#rc(expand('~/.vim/bundle'))
+" NeoBundleを初期化
+call neobundle#begin(expand('~/.vim/bundle/'))
+" ----- インストールするプラグインの記述 こここから -----
+" ここに使用したいプラグインのリポジトリアドレスを記述する
+" github, vim.org に存在するプラグインのアドレスは省略できる
+"   例: 'Shougo/unite.vim' は 'git://github.com/Shougo/unite.vim.git' と同じ
+"       'CSApprox' のようにプラグイン名のみだとVim.orgのプラグインを表す
 
-" NeoBundleを更新するための設定
+" NeoBundle自体をneobundleで管理する場合はNeoBundleFetchを使う
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" ==========================================================================
-" 読み込むプラグインを記載
-" プラグインのリポジトリアドレスを指定する
-" - github, vim.org に存在するプラグインのアドレスは省略できる
-"   - 'Shougo/unite.vim' は 'git://github.com/Shougo/unite.vim.git' と同じ
-"   - 'CSApprox' のようにプラグイン名のみだとVim.orgのプラグインを表す
-
+" -----
 NeoBundle 'Shougo/unite.vim'
-" NeoBundle 'itchyny/lightline.vim'
 
+" -----
+" unite-outline: ソースファイルを解析し、アウトラインを表示する (2015-03-08)
+" :Unite outlineで起動する
+" ※ unite-outlineと同様のことが別にインストールしたVoomでも可能
+"NeoBundle 'h1mesuke/unite-outline'
+"↑最初これ指定してたらエラーになったので↓に変更して:NeoBundleCleanと:NeoBundleUpdateしたら動くようになった
+NeoBundle 'https://github.com/Shougo/unite-outline'
+" ※ C++のコードを見るときは exuberant ctags が必要なので以下にインストール(2015-03-08)
+"    C:\data\shortcuts\ctags.exe
+
+" 「:,u」と入力したときにunite-outlineの以下のコマンドを実行する
+"  :Unite -no-quit -vertical outline
+"    -no-quit: アウトラインのバッファを閉じないようにする
+"    -vertical: 垂直分割で開く
+"http://hinagishi.hateblo.jp/entry/2011/11/18/135701
+noremap ,u <ESC>:Unite -no-quit -vertical outline<Return>
+
+" -----
 " autocomplpop.vim: キーワード補完リストを自動で出す
 NeoBundle 'https://github.com/vim-scripts/AutoComplPop'
 
+" -----
 "eblook.vim: eblookプログラムを使って辞書を引く
 NeoBundle 'https://github.com/deton/eblook.vim'
 "  昔のやり方:
@@ -39,6 +63,7 @@ NeoBundle 'https://github.com/deton/eblook.vim'
 "     解凍したファイルをREADME.markdownを参考に移動
 "     ただし、Vimのバージョンアップで面倒にならないように runtime ではなく _runtime フォルダに移動
 
+" -----
 "Alin.vim: コードの整形ツール
 NeoBundle 'https://github.com/vim-scripts/Align'
 " 以下のようなコードを選択後 \tsp を入力すると
@@ -53,17 +78,57 @@ NeoBundle 'https://github.com/vim-scripts/Align'
 " http://nanasi.jp/vim/align.html
 " などを参照
 
+" -----
+"VOoM (Vim Outliner of Markups) is a plugin for Vim that emulates a two-pane text outliner.
+NeoBundle 'https://github.com/vim-scripts/VOoM'
+" 以下の紹介記事を見てインストール
+" http://syotaro.ruhoh.com/posts/20121216-tips-vim-outliner/
 
-" ※ 登録したプラグインの
-"    インストールは  :NeoBundleInstall
-"    アップデートは  :NeoBundleUpdate
-"    で行う。
-" ==========================================================================
+" -----
+"Indent Guides - インデント可視化プラグイン (2015-01-04)
+NeoBundle 'nathanaelkane/vim-indent-guides'
+" 以下の紹介記事を見てインストール
+" http://qiita.com/tekkoc/items/923d7a7cf124e63adab5
+" http://www.absolute-keitarou.net/blog/?p=1127
+" http://www.mk-mode.com/octopress/2014/02/10/vim-installation-of-indent-plugin/
+" Vim 起動時 vim-indent-guides を自動起動
+let g:indent_guides_enable_on_vim_startup=1
+" ガイドをスタートするインデントの量
+let g:indent_guides_start_level=2
+" 自動カラー無効
+let g:indent_guides_auto_colors=0
+" 奇数番目のインデントの色
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#444433 ctermbg=black
+" 偶数番目のインデントの色
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#333344 ctermbg=darkgray
+" ガイドの幅
+let g:indent_guides_guide_size = 1
+
+
+" -----
+"jedi.vim - Pythonをvimで書くときにコード補完を行ってくれる (2015-01-04)
+"http://qiita.com/tekkoc/items/923d7a7cf124e63adab5
+"http://togattti.hateblo.jp/entry/2013/10/16/214911
+NeoBundle 'davidhalter/jedi-vim'
+
+" -----
+"Molokai color scheme for Vim
+"※カラースキームの設定は gvimrc に記載する
+NeoBundle 'https://github.com/tomasr/molokai'
+
+" -----
+" zoom.vim : 「+」、「-」キーで文字の大きさを変更できる (2015-11-23)
+"NeoBundle 'https://github.com/taku-o/downloads/raw/master/zoom.vim' <= これだとうまくインストールされず
+NeoBundle 'vim-scripts/zoom.vim'
+
+" ----- インストールするプラグインの記述 ここまで -----
+call neobundle#end()
 
 " 読み込んだプラグインも含め、ファイルタイプの検出、ファイルタイプ別プラグイン/インデントを有効化する
 filetype plugin indent on
 
-" インストールのチェック
+" 未インストールのプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
+" 毎回聞かれると邪魔な場合もあるので、この設定は任意です。
 NeoBundleCheck
 
 " ##########################################################################
@@ -113,6 +178,11 @@ let g:changelog_new_date_format = "%d  %u\n\n\t* やったこと:\n\t%c\n\n"
 "inoremap <C-D> <C-R>=strftime("%Y/%m/%d")<CR>
 inoremap <C-D> <C-R>=strftime("%Y-%m-%d")<CR>
 
+" 2014-05-22
+" Ctrl-Tを押したときに時刻を入力
+" ※ Ctrl-Tはタグジャンプの「直前のタグに戻る」に割り当てられているみたいなので注意が必要
+inoremap <C-T> <C-R>=strftime("%H:%M")<CR>
+" 秒まで入力したいなら %H:%M:%S
 
 " Windowsで一般的な切り抜き(CTRL-X)、コピー(CTRL-C)、貼り付け(CTRL-V)をvim でも使う
 " CTRL-C にもともと割り当てられていた、コマンドのキャンセルを行いたい時には、 
@@ -121,7 +191,6 @@ inoremap <C-D> <C-R>=strftime("%Y-%m-%d")<CR>
 " source $VIMRUNTIME/mswin.vim
 " source C:\Vim\_runtime/mswin.vim " オリジナルをコピーしてカスタマイズ
 source $VIMRUNTIME/mswin.vim " 2014-01-13 確認したところ標準と変わらないので元に戻す
-
 
 " 2008-02-16 タブの切替えを、Mozilla Firefox 風にする。
 " http://rewse.jp/fukugan/article.php?id=762
@@ -219,6 +288,14 @@ set statusline=%F%m%r%h%w\%=ft=%Y,fmt=%{&ff},enc=%{&fileencoding},line=%l/%L,col
 " set backupdir=c:/Vim/backup
 set backupdir=~/vimfiles/tmp/backup
 
+" 2015-07-06 Vim74のバージョンアップに伴いundofile を作成する場所を設定
+" http://www.kaoriya.net/blog/2014/03/30/
+" Vim は 7.4.227 から、デフォルトで undofile がオンの状態で配布されるようにな
+" りました。そのためデフォルトではファイルを保存した時に同時に .{ファイル
+" 名}.un~ を undo ファイルを作成します。
+" この undo ファイルにより Vim は undo の情報をセッションを越えて保持できます。
+set undodir=~/vimfiles/tmp/undo
+
 " swapファイルを作成する場所の指定
 set directory=~/vimfiles/tmp/swap " 2014-02-14
 
@@ -247,18 +324,22 @@ set viminfo+=n~/vimfiles/tmp/viminfo.txt
 "       set softtabstop=4
 " としていると、例えば行頭で TAB キーを押すと4つのスペースが挿入され、もう一回
 " TAB キーをおすと合計8つのスペースの代わりに TAB が一つ挿入されます。
-
 "     カーソル
 " ------->カーソル
 
 " そして、バックスペース・キーは softtabstop の幅だけ、スペースを削除します。
-
 " ------->カーソル
 "     カーソル
 
 " つまり、感覚的には本当の TAB を挿入したり削除しているようなのですが、実際の
 " TAB は tabstop の値に保たれます。
 
+"set tabstop=2 2005-11-05
+"set tabstop=4 2008-05-09
+"set tabstop=8
+"set softtabstop=4
+set tabstop=2
+set softtabstop=2
 
 " 2. shiftwidth: インデント・コマンドで挿入されるスペースの数。
 " インデント・コマンドとは >> のようなコマンド群です。
@@ -268,30 +349,47 @@ set viminfo+=n~/vimfiles/tmp/viminfo.txt
 "       :[range]<           :[range]>
 "       :[range]< {count}   :[range]> {count}
 " また、これ以外に cindent におけるインデントでも shiftwidthの値が使われます。
+" set shiftwidth=2 2005-11-05
+set shiftwidth=2
 
 " 3. smarttab: TAB の動作を賢くする
-" smarttab オプションがセットされていると、行頭で TAB キーを押した場合には、
-" shiftwidth の幅のスペースと TAB が挿入されます。それ以外の場所では本当の TAB
-" が挿入されます、softtabstop が設定されているとその値です。
+" smarttab オプションがセットされていると、
+" ・行頭で TAB キーを押した場合には、shiftwidth の幅のスペースと TAB が挿入されます。
+" ・それ以外の場所では本当の TAB が挿入されます、softtabstop が設定されているとその値です。
+"set nosmarttab 2015-01-04
+set smarttab
 
 " 4. expandtab: 本当の TAB は挿入せず、tabstop の値の数のスペースを挿入する。
 " softtabstop が設定されているとその数だけ。softtabstop が設定されていないと、
 " バックスペース・キーでは、スペースが1つずつ削除されることになります。
-
-" set tabstop=2         <- 2005-11-05
-" set softtabstop=4
-" set shiftwidth=2      <- 2005-11-05
-" set smarttab
-" " 本当の TAB は挿入したくない場合は expandtab にする。
 " set noexpandtab
-
-set nosmarttab
-"set tabstop=8
-"set tabstop=4 2008-05-09
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
 set expandtab "2009-01-06
+
+" expandtabの時に、タブ文字を挿入したい場合は、
+" http://nanasi.jp/articles/howto/editing/et-inserttab.html
+
+" インデントの設定をファイルタイプ別に行う (2015-01-04)
+" http://d.hatena.ne.jp/foussin/20121125/1353790707
+"   (shiftwidth=スマートインデントの幅)
+"   (tabstop=タブの画面上での幅)
+"   (softtabstop=??? デフォルトは tabstop と同じらしい)
+augroup vimrc
+" Vimで現在のバッファ（開いているファイル）のfiletypeを取得するには、
+" :echo &filetype
+  autocmd! FileType cs         setlocal shiftwidth=4 tabstop=4 softtabstop=4
+  autocmd! FileType c          setlocal shiftwidth=4 tabstop=4 softtabstop=4
+  autocmd! FileType cpp        setlocal shiftwidth=4 tabstop=4 softtabstop=4
+  autocmd! FileType python     setlocal shiftwidth=4 tabstop=4 softtabstop=4
+augroup END
+
+
+" ##########################################################################
+" 自動改行
+" ##########################################################################
+" デフォルトで78文字目で改行されてしまうのを自動改行しないようにする
+" vimrc_exampleのtextwidth設定を上書き
+" http://d.hatena.ne.jp/WK6/20120606/1338993826
+autocmd FileType text setlocal textwidth=0
 
 " ##########################################################################
 " grep
@@ -316,11 +414,13 @@ autocmd QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | cop
 " ##########################################################################
 " クリップボードへのコピーペースト
 " ##########################################################################
-
 " 2011-12-17
 " 削除内容もクリップボードに入ってしまい、クリップボードの内容が置き変わってしまうので止めた。
 " 2011-11-01
-" 以下の設定で、通常、「無名レジスタ」に入る、 ヤンク、カットの操作で指定したテキストが、「*レジスタ」にも入るようになります。「*レジスタ」にデータを入れると、クリップボードにデータが入るので、vimエディタでヤンク、カットしたテキストを、他のアプリケーションで即ペーストして使用できることになります。
+" 以下の設定で、通常、「無名レジスタ」に入る、 ヤンク、カットの操作で指定した
+" テキストが、「*レジスタ」にも入るようになります。「*レジスタ」にデータを入れ
+" ると、クリップボードにデータが入るので、vimエディタでヤンク、カットしたテキ
+" ストを、他のアプリケーションで即ペーストして使用できることになります。
 " http://nanasi.jp/articles/howto/editing/clipboard.html
 "set clipboard+=unnamed
 
@@ -387,11 +487,12 @@ let eblook_dictlist1 = [{'book': 'c:/eblook/eijiro/','name': 'eijiro','title': '
 "let eblook_dictlist1 = [{'book': 'c:/Vim/ASCDATES/','name': 'ascdates','title': 'アスキー手帳',}]
 
 
-" ##########################################################################
-" CMA3000のrctext(自動試験)のリモートコマンドスクリプトファイル
-" *.cmd や init をシェルスクリプトの形式として表示する
-" ##########################################################################
-au BufRead,BufNewFile *.cmd set filetype=sh
-au BufRead,BufNewFile *.ref set filetype=sh
-au BufRead,BufNewFile *.init set filetype=sh
+"===============================================================================
+" カレントディレクトリを自動的に変更する (2015-11-21)
+"===============================================================================
+"これがオンであるとファイルを開くとき、バッファを切り替えるとき、バッファを削
+"除するとき、ウィンドウを開閉するときに毎回作業ディレクトリが変更される。開か
+"れた／選択されたファイルを含んでいるディレクトリがカレントディレクトリになる。
+set autochdir
+
 

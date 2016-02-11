@@ -31,7 +31,7 @@ syntax match wikiYougo "^:.*" contains=@wikiWord
 
 syntax match wikiLine "^----.*" contains=@wikiWord
 
-syntax match wikiVerbatim /^ .*/ contains=@wikiWord
+"syntax match wikiVerbatim /^ .*/ contains=@wikiWord  <= BERTWave Wiki では不要(2014-11-11)
 syntax region wikiVerbatimSoft start=/--(/ end=/--)/ contains=@wikiWord
 syntax region wikiVerbatimHard start=/---(/ end=/---)/ contains=@wikiWord
 
@@ -78,7 +78,7 @@ hi def wikiBold gui=bold guifg=red
 "hi def link wikiItalic Underlined
 hi def wikiItalic gui=italic guifg=red
 
-hi def link wikiVerbatim	Constant
+"hi def link wikiVerbatim	Constant   <= BERTWave Wiki では不要(2014-11-11)
 hi def link wikiVerbatimSoft	Special
 hi def link wikiVerbatimHard	Constant
 
