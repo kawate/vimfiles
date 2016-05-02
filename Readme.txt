@@ -61,41 +61,13 @@ $HOMEの実際の場所はVimを起動して:echo $HOMEで確認できる。
 vimrc/gvimrcを探す場所と順番は:versionで確認できる。
 
 --
-vimrcで指定してあるバックアップファイル、swapファイル、viminfoファイルを作成する場所を作成する
+バックアップファイル、swapファイル、viminfoファイルを作成する場所を作成する
+これらの場所は vimrc で指定してある
 
+cd %userprofile%
 mkdir vimfiles\tmp
 mkdir vimfiles\tmp\backup
 mkdir vimfiles\tmp\swap
-
-
-
-==========================================
-NeoBundleとGitによる管理への移行の内容
-==========================================
-
---
-以下のファイルをGitHubのリポジトリに移動
-https://github.com/kawate/vimfiles
-_vimrc  → vimrc
-_gvimrc → gvimrc
-
-GitHubのvimfilesフォルダのローカルリポジトリをVimが参照する場所に作成
-  今回は$HOMEの下（C:\Users\kawate\vimfiles）に作成
-    vimrc/gvimrcを探す場所と順番は:versionで確認できる
-    $HOMEの実際の場所は、Vimを起動して:echo $HOMEで確認できる
-
---
-設定ファイル一式の取得
-
-設定ファイルを %userprofile% 下に置く。
-また、バックアップやviminfoを置く場所を作成する。
-コマンドプロンプトで以下のように実行
-
->cd %userprofile%
->git clone https://github.com/kawate/vimfiles
->mkdir vimfiles\tmp
->mkdir vimfiles\tmp\backup
->mkdir vimfiles\tmp\swap
 
 --
 neobundleをインストール
@@ -113,8 +85,29 @@ http://mix-mplus-ipa.sourceforge.jp/migu/
 以下ファイルをそれぞれ右クリックして「インストール」を実行する。
 migu-1m-bold.ttf
 migu-1m-regular.ttf
+
+--
+テキストファイルを右クリック-[プロパティ]で、
+プログラムをメモ帳から C:\vim\gvim.exe に変更
+
+--
+Vimを起動する
+
+NeoBundleによりvimrcで指定したプラグインがインストールされる。
 Vimを起動しフォント設定で「Migu 1M」が選択されていることを確認する。
 
+--
+vimfilesフォルダのショートカットを C:\Vim に置いておく
+
+
+==========================================
+NeoBundleとGitによる管理への移行の内容
+==========================================
+
+--
+以下のファイルをGitHubのリポジトリに移動
+_vimrc  → vimrc
+_gvimrc → gvimrc
 
 --
 *管理者権限で*コマンドプロンプトを開き、
