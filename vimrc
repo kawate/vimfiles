@@ -53,6 +53,11 @@ noremap ,u <ESC>:Unite -no-quit -vertical outline<Return>
 " -----
 " autocomplpop.vim: キーワード補完リストを自動で出す
 NeoBundle 'https://github.com/vim-scripts/AutoComplPop'
+"  昔のやり方
+"    http://blog.blueblack.net/item_164 のリンクから、
+"    http://www.vim.org/scripts/script.php?script_id=1879 の最新版をダウンロードし、
+"    vim-autocomplpop.zip
+"    展開したファイル群を _runtime フォルダに移動
 
 " -----
 "eblook.vim: eblookプログラムを使って辞書を引く
@@ -134,8 +139,9 @@ NeoBundleCheck
 " ##########################################################################
 
 
-" 2010-11-26 追加の runtime を置く場所を作成
-set runtimepath+=C:\Vim\_runtime
+" 追加の runtime を置く場所(2010-11-26)
+" -> NeoBundleに移行しているためコメントアウト(2016-05-02)
+" set runtimepath+=C:\Vim\_runtime
 
 
 " ##########################################################################

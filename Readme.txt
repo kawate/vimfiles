@@ -100,52 +100,26 @@ txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 
 
 --
-ヘルプの日本語化 → すでに日本語化済みなので不要
+英辞郎の英単語を<c-k>yで引けるようにする
+  辞書引きツール eblook.exe と、変換済みの辞書データ eijiro フォルダを C:\eblook に作成し、
+  eblook.exe がコマンドとして起動できるように PATH変数に C:\eblook を追加する。
+  その他詳細はvimrcのeblookのところを参照。
 
 --
-全角スペースの強調表示 → vimrcに定義済み
+カスタマイズして使っているpluginやsyntaxファイルは
+vimfilesの以下のフォルダに格納して使う
 
+  + plugin
+    + dot.vim   DotOutlineTree: アウトラインプロセッサとして使う
+      前は C:\data\application\Vim\arc\Vim7.3\dot.vim にあったものをコピー
 
---
-キーワード補完リストを自動で出す
-autocomplpop.vim → neobundleでインストールするように変更。詳細はvimrc参照
+  + syntax
+    + wiki.vim  Wiki用シンタックスファイルの追加
+    + ttl.vim   TeraTermマクロ用シンタックスファイルの追加 → 実施
 
-[昔のやり方]
-http://blog.blueblack.net/item_164 のリンクから、
-http://www.vim.org/scripts/script.php?script_id=1879 の最新版をダウンロードし、
-vim-autocomplpop.zip
-展開したファイル群を _runtime フォルダに移動
-
---
-英辞郎で英単語を<c-k>yで引けるようにする
-eblook.vim
-
-eblook.vimはneobundleでインストールするように変更。詳細はvimrc参照。
-辞書引きツール eblook.exe と、変換済みの辞書データ eijiro フォルダを C:\eblook に移動
-eblook.exe がコマンドとして起動できるように PATH変数に C:\eblook を追加。
-その他使い方などはvimrc参照。
-
---
-その他pluginやsyntaxファイルの移動
-
-C:\Vim\_runtime
-においていた以下のファイルを
-C:\Users\kawate\vimfiles
-にコピー
-
-plugin
-  dot.vim   DotOutlineTree: アウトラインプロセッサとして使う
-  前は C:\data\application\Vim\arc\Vim7.3\dot.vim にあったものをコピー
-
-syntax
-  wiki.vim  Wiki用シンタックスファイルの追加
-  ttl.vim   TeraTermマクロ用シンタックスファイルの追加 → 実施
-
---
-追加の runtime を置く場所を作成
-C:\Vim\_runtime を作成して、
-_vimrc に以下の行を追加
+これらは昔は C:\Vim\_runtime に置き、_vimrc に
 set runtimepath+=C:\Vim\_runtime
+の行を追加して使っていた
 
 --
 タブ機能1: ファイルをダブル・クリックをしたときに新規タブで表示する → 動作OK確認
