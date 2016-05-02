@@ -29,29 +29,49 @@ http://www.kaoriya.net/ からVimのzipファイルをダウンロードして解凍する。
 Vimフォルダ に vimfilesフォルダと バージョンアップ履歴.txt のショートカットを置いておく。
 
 ==========================================
-Vimのセットアップ手順
+Vimの初回セットアップ手順
 ==========================================
 
 --
 Vimのインストール
 
-Vim7.4をhttp://www.kaoriya.net/からダウンロード
-解凍してC:\Vimに移動
+http://www.kaoriya.net/からダウンロードし、
+解凍してC:\Vimに移動する。
+何をインストールしたかわかりやすいように、バージョン（ダウンロードしたファイルのファイル名）のメモをVimフォルダに置いておく。
 
 --
-Gitのインストール
-
-Git for Windows
-http://msysgit.github.io/
+Git for Windows のインストール
+https://git-for-windows.github.io/
 ※ インストール時のオプションで、
    「Run Git from the Windows Command Prompt」を選択する
    （gitコマンドをPATHに追加する）
 
-TortoiseGit
-https://code.google.com/p/tortoisegit/
+--
+TortoiseGit のインストール
+https://tortoisegit.org/
 
-GitHub native app
-https://help.github.com/articles/set-up-git
+--
+vimfiles の取得
+
+cd %userprofile%
+git clone https://github.com/kawate/vimfiles
+
+これでvimfilesをVimの$HOMEの下に作成する。
+$HOMEの実際の場所はVimを起動して:echo $HOMEで確認できる。
+vimrc/gvimrcを探す場所と順番は:versionで確認できる。
+
+--
+vimrcで指定してあるバックアップファイル、swapファイル、viminfoファイルを作成する場所を作成する
+
+mkdir vimfiles\tmp
+mkdir vimfiles\tmp\backup
+mkdir vimfiles\tmp\swap
+
+
+
+==========================================
+NeoBundleとGitによる管理への移行の内容
+==========================================
 
 --
 以下のファイルをGitHubのリポジトリに移動
@@ -84,6 +104,17 @@ neobundleをインストール
 mkdir %userprofile%\.vim\bundle
 cd %userprofile%\.vim\bundle
 git clone git://github.com/Shougo/neobundle.vim
+
+--
+gvimrcで指定している「Migu 1M」フォントのインストール
+
+以下から「Migu 1M」フォントのzipファイルをダウンロードし解凍する。
+http://mix-mplus-ipa.sourceforge.jp/migu/
+以下ファイルをそれぞれ右クリックして「インストール」を実行する。
+migu-1m-bold.ttf
+migu-1m-regular.ttf
+Vimを起動しフォント設定で「Migu 1M」が選択されていることを確認する。
+
 
 --
 *管理者権限で*コマンドプロンプトを開き、
