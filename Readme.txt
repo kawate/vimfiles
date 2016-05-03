@@ -87,10 +87,6 @@ migu-1m-bold.ttf
 migu-1m-regular.ttf
 
 --
-テキストファイルを右クリック-[プロパティ]で、
-プログラムをメモ帳から C:\vim\gvim.exe に変更
-
---
 Vimを起動する
 
 NeoBundleによりvimrcで指定したプラグインがインストールされる。
@@ -98,16 +94,6 @@ Vimを起動しフォント設定で「Migu 1M」が選択されていることを確認する。
 
 --
 vimfilesフォルダのショートカットを C:\Vim に置いておく
-
-
-==========================================
-NeoBundleとGitによる管理への移行の内容
-==========================================
-
---
-以下のファイルをGitHubのリポジトリに移動
-_vimrc  → vimrc
-_gvimrc → gvimrc
 
 --
 *管理者権限で*コマンドプロンプトを開き、
@@ -122,6 +108,22 @@ txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 >ftype txtfile
 txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 
+--
+以下の動作を確認する
+- ファイルをダブル・クリックをしたときに新規タブで表示する
+- タブの切替えを、Mozilla Firefox 風にする
+- IME状態に応じたカーソル色を設定 (IME ONで赤くなる.gvimrcで指定)
+
+
+
+==========================================
+NeoBundleとGitによる管理への移行の内容
+==========================================
+
+--
+以下のファイルをGitHubのリポジトリに移動
+_vimrc  → vimrc
+_gvimrc → gvimrc
 
 --
 英辞郎の英単語を<c-k>yで引けるようにする
@@ -144,11 +146,6 @@ vimfilesの以下のフォルダに格納して使う
 これらは昔は C:\Vim\_runtime に置き、_vimrc に
 set runtimepath+=C:\Vim\_runtime
 の行を追加して使っていた
-
---
-タブ機能1: ファイルをダブル・クリックをしたときに新規タブで表示する → 動作OK確認
-タブ機能2: タブの切替えを、Mozilla Firefox 風にする → 動作OK確認
-IME状態に応じたカーソル色を設定 → 動作OK確認
 
 --
 環境変数の設定 → 未実施
