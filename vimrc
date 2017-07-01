@@ -2,7 +2,7 @@
 " NeoBundleによるVimのプラグイン管理
 "===============================================================================
 " プラグインをインストール:
-"   vimrc の NeoBundle で指定して、vim上から :NeoBundleInstall 
+"   vimrc の NeoBundle で指定して、vim上から :NeoBundleInstall
 " アップデート:
 "   vim上から :NeoBundleUpdate
 " プラグインを削除:
@@ -29,6 +29,11 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 " NeoBundle自体をneobundleで管理する場合はNeoBundleFetchを使う
 NeoBundleFetch 'Shougo/neobundle.vim'
+
+" -----
+" 2016-11-26 同じウィンドウで開く
+" 以降の「singleton#enable」で有効にしている
+NeoBundle 'thinca/vim-singleton'
 
 " -----
 NeoBundle 'Shougo/unite.vim'
@@ -126,8 +131,21 @@ NeoBundle 'https://github.com/tomasr/molokai'
 "NeoBundle 'https://github.com/taku-o/downloads/raw/master/zoom.vim' <= これだとうまくインストールされず
 NeoBundle 'vim-scripts/zoom.vim'
 
+
+" -----
+" grep.vim 2017-02-04 → うまく動かない（エラーで結果がでない）ので使うの止めた(2017-02-05)
+" - :Rgrep で簡単な操作で再帰的な grep ができる
+" http://myenigma.hatenablog.com/entry/2016/01/17/184925#より快適にgrepするためのvimrc設定
+"NeoBundle 'vim-scripts/grep.vim'
+" grep.vim は grep のほか、 find と xargs を使うみたいなので、C:\data\shortcuts に置いた。
+"let Grep_Path = 'C:\data\shortcuts\grep.exe' 
+"let Grep_Xargs_Path = 'C:\data\shortcuts\xargs.exe' 
+"let Grep_Find_Path = 'C:\data\shortcuts\find.exe'
+"let Grep_Shell_Quote_Char = '"'
+
 " ----- インストールするプラグインの記述 ここまで -----
 call neobundle#end()
+
 
 " 読み込んだプラグインも含め、ファイルタイプの検出、ファイルタイプ別プラグイン/インデントを有効化する
 filetype plugin indent on
@@ -136,12 +154,61 @@ filetype plugin indent on
 " 毎回聞かれると邪魔な場合もあるので、この設定は任意です。
 NeoBundleCheck
 
+
 " ##########################################################################
 
 
 " 追加の runtime を置く場所(2010-11-26)
 " -> NeoBundleに移行しているためコメントアウト(2016-05-02)
 " set runtimepath+=C:\Vim\_runtime
+
+
+" ##########################################################################
+" 同じウィンドウで開くようにする
+" ##########################################################################
+"" 2016-11-12
+"" 以下を追加しておくと、ファイルの関連付けするときに、
+"" ftypeコマンドで以下のように「--remote-tab-silent」を指定しなくてもOKになる。
+"" "C:\vim\gvim.exe" --remote-tab-silent "%1"
+"" このため、ftype コマンドで上記のような指定があるものはすべて削除した。
+"" 今後は、WindowsのGUIの設定でgvimを指定するようにする。
+"" 上記があれば、ファイルを指定してgvimを開くと必ずタブで開かれるようになる。
+"" 別ウィンドウにしたい場合はgvimに引数を付けないで起動すれば良い。
+""
+"" 関連情報: 右クリックのメニューに「Vimで開く」を追加する方法
+"" 以下のレジストリに設定する。
+"" HKEY_CLASSES_ROOT ⇒ * ⇒ shell ⇒ Vimで開く
+""                                    Vimで開く(--remote-tab-silent)
+""
+"" ※「--remote-tab-silent」だとパスに「#」を含むファイルがエラーで開けないことがある(2016-11-12)
+""
+"" 本設定の説明:
+""   http://tyru.hatenablog.com/entry/20130430/vim_resident
+""「--remote-tab-silent」についての説明：
+""   http://mattn.kaoriya.net/software/vim/20071004163036.htm
+""===============================================================================
+"" If starting gvim && arguments were given
+"" (assuming double-click on file explorer)
+"if has('gui_running') && argc()
+"    let s:running_vim_list = filter(
+"    \   split(serverlist(), '\n'),
+"    \   'v:val !=? v:servername')
+"    " If one or more Vim instances are running
+"    if !empty(s:running_vim_list)
+"        " Open given files in running Vim and exit.
+"        silent execute '!start gvim'
+"        \   '--servername' s:running_vim_list[0]
+"        \   '--remote-tab-silent' join(argv(), ' ')
+"        qa!
+"    endif
+"    unlet s:running_vim_list
+"  endif
+
+" 2016-11-26
+" 上記は止めて vim-singleton プラグインを使うようにした (ファイル名にスペースが含まれていると、スペースで分割された複数のファイルとして扱われてしまうため)
+" http://tyru.hatenablog.com/entry/20130430/vim_resident
+" .vimrc 内の上の方に書いた方がいい (ファイルを開いた際に、すでに起動済みの Vim があった場合はそちらで開いて即座に終了するため) ただし、設定はこの前に記述する (g:singleton#ignore_pattern に除外するファイルのパターンを書いておけば、それらのファイルだった場合は普通に開かれる、など)
+call singleton#enable()
 
 
 " ##########################################################################
@@ -390,6 +457,12 @@ augroup END
 
 
 " ##########################################################################
+" FileTypeの設定
+" ##########################################################################
+" FlexDCAのマスクファイル(*.mskx) 2017-03-16
+autocmd BufRead,BufNewFile *.mskx set filetype=xml
+
+" ##########################################################################
 " 自動改行
 " ##########################################################################
 " デフォルトで78文字目で改行されてしまうのを自動改行しないようにする
@@ -400,6 +473,17 @@ autocmd FileType text setlocal textwidth=0
 " ##########################################################################
 " grep
 " ##########################################################################
+
+" 2010-01-08
+" Vim7 内蔵の grep を使うには :vimgrep コマンドを使えばよい。
+" :vimgrep /hogehoge/ *.txt
+" 最初にマッチしたファイルを開かないようにするには j フラグを使う。
+" :vimgrep /hogehoge/j *.txt
+" 再帰的に検索するには **(starstar) を使う。
+" :vimgrep /hogehoge/j **/*.txt
+" ひとつ上の階層から再帰的に検索するときは../を追加
+" :vimgrep /hogehoge/j ../**/*.lua
+" 検索結果は Quickfixリストに表示される。:copen で開き :ccl で閉じることができる。詳細は :he quickfix-window。
 
 " 2009-11-09  vimでgrepとかするときに、対象があるときのみ自動でquickfixを開く
 "   http://webtech-walker.com/archive/2009/09/29213156.html
@@ -416,6 +500,13 @@ autocmd QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | cop
 " http://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-grep
 " :grep を :vimgrep のエイリアスにするには、gvimrc に以下の行を追加する。 
 " set grepprg=internal
+
+" 2017-02-04 jvgrep をデフォルトの grep プログラムとして使用する
+" http://myenigma.hatenablog.com/entry/2016/01/17/184925#より快適にgrepするためのvimrc設定
+if executable('jvgrep')
+  set grepprg=jvgrep
+endif
+
 
 " ##########################################################################
 " クリップボードへのコピーペースト
@@ -500,5 +591,6 @@ let eblook_dictlist1 = [{'book': 'c:/eblook/eijiro/','name': 'eijiro','title': '
 "除するとき、ウィンドウを開閉するときに毎回作業ディレクトリが変更される。開か
 "れた／選択されたファイルを含んでいるディレクトリがカレントディレクトリになる。
 set autochdir
+
 
 
