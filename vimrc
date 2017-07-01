@@ -263,7 +263,8 @@ inoremap <C-T> <C-R>=strftime("%H:%M")<CR>
 " 同じように、矩形選択したい時には、CTRL-V のかわりにCTRL-Qを使ってください。
 " source $VIMRUNTIME/mswin.vim
 " source C:\Vim\_runtime/mswin.vim " オリジナルをコピーしてカスタマイズ
-source $VIMRUNTIME/mswin.vim " 2014-01-13 確認したところ標準と変わらないので元に戻す
+" source $VIMRUNTIME/mswin.vim " 2014-01-13 確認したところ標準と変わらないので元に戻す
+" 2017-07-01 最新のmswin.vim(C:\Vim\vim80\mswin.vim)はCTRL-Fが検索に割り当てられた、今までどおりページスクロールで使用したいため、修正してpluginフォルダに移動してこれを使用することにした。
 
 " 2008-02-16 タブの切替えを、Mozilla Firefox 風にする。
 " http://rewse.jp/fukugan/article.php?id=762
