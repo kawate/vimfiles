@@ -29,53 +29,45 @@ http://www.kaoriya.net/ からVimのzipファイルをダウンロードして解凍する。
 Vimフォルダ に vimfilesフォルダと バージョンアップ履歴.txt のショートカットを置いておく。
 
 ==========================================
-Vimのセットアップ手順
+Vimの初回セットアップ手順
 ==========================================
 
 --
 Vimのインストール
 
-Vim7.4をhttp://www.kaoriya.net/からダウンロード
-解凍してC:\Vimに移動
+http://www.kaoriya.net/からダウンロードし、
+解凍してC:\Vimに移動する。
+何をインストールしたかわかりやすいように、バージョン（ダウンロードしたファイルのファイル名）のメモをVimフォルダに置いておく。
 
 --
-Gitのインストール
-
-Git for Windows
-http://msysgit.github.io/
+Git for Windows のインストール
+https://git-for-windows.github.io/
 ※ インストール時のオプションで、
    「Run Git from the Windows Command Prompt」を選択する
    （gitコマンドをPATHに追加する）
 
-TortoiseGit
-https://code.google.com/p/tortoisegit/
-
-GitHub native app
-https://help.github.com/articles/set-up-git
+--
+TortoiseGit のインストール
+https://tortoisegit.org/
 
 --
-以下のファイルをGitHubのリポジトリに移動
-https://github.com/kawate/vimfiles
-_vimrc  → vimrc
-_gvimrc → gvimrc
+vimfiles の取得
 
-GitHubのvimfilesフォルダのローカルリポジトリをVimが参照する場所に作成
-  今回は$HOMEの下（C:\Users\kawate\vimfiles）に作成
-    vimrc/gvimrcを探す場所と順番は:versionで確認できる
-    $HOMEの実際の場所は、Vimを起動して:echo $HOMEで確認できる
+cd %userprofile%
+git clone https://github.com/kawate/vimfiles
+
+これでvimfilesをVimの$HOMEの下に作成する。
+$HOMEの実際の場所はVimを起動して:echo $HOMEで確認できる。
+vimrc/gvimrcを探す場所と順番は:versionで確認できる。
 
 --
-設定ファイル一式の取得
+バックアップファイル、swapファイル、viminfoファイルを作成する場所を作成する
+これらの場所は vimrc で指定してある
 
-設定ファイルを %userprofile% 下に置く。
-また、バックアップやviminfoを置く場所を作成する。
-コマンドプロンプトで以下のように実行
-
->cd %userprofile%
->git clone https://github.com/kawate/vimfiles
->mkdir vimfiles\tmp
->mkdir vimfiles\tmp\backup
->mkdir vimfiles\tmp\swap
+cd %userprofile%
+mkdir vimfiles\tmp
+mkdir vimfiles\tmp\backup
+mkdir vimfiles\tmp\swap
 
 --
 neobundleをインストール
@@ -84,6 +76,24 @@ neobundleをインストール
 mkdir %userprofile%\.vim\bundle
 cd %userprofile%\.vim\bundle
 git clone git://github.com/Shougo/neobundle.vim
+
+--
+gvimrcで指定している「Migu 1M」フォントのインストール
+
+以下から「Migu 1M」フォントのzipファイルをダウンロードし解凍する。
+http://mix-mplus-ipa.sourceforge.jp/migu/
+以下ファイルをそれぞれ右クリックして「インストール」を実行する。
+migu-1m-bold.ttf
+migu-1m-regular.ttf
+
+--
+Vimを起動する
+
+NeoBundleによりvimrcで指定したプラグインがインストールされる。
+Vimを起動しフォント設定で「Migu 1M」が選択されていることを確認する。
+
+--
+vimfilesフォルダのショートカットを C:\Vim に置いておく
 
 --
 *管理者権限で*コマンドプロンプトを開き、
@@ -98,6 +108,22 @@ txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 >ftype txtfile
 txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 
+--
+以下の動作を確認する
+- ファイルをダブル・クリックをしたときに新規タブで表示する
+- タブの切替えを、Mozilla Firefox 風にする
+- IME状態に応じたカーソル色を設定 (IME ONで赤くなる.gvimrcで指定)
+
+
+
+==========================================
+NeoBundleとGitによる管理への移行の内容
+==========================================
+
+--
+以下のファイルをGitHubのリポジトリに移動
+_vimrc  → vimrc
+_gvimrc → gvimrc
 
 --
 英辞郎の英単語を<c-k>yで引けるようにする
@@ -120,11 +146,6 @@ vimfilesの以下のフォルダに格納して使う
 これらは昔は C:\Vim\_runtime に置き、_vimrc に
 set runtimepath+=C:\Vim\_runtime
 の行を追加して使っていた
-
---
-タブ機能1: ファイルをダブル・クリックをしたときに新規タブで表示する → 動作OK確認
-タブ機能2: タブの切替えを、Mozilla Firefox 風にする → 動作OK確認
-IME状態に応じたカーソル色を設定 → 動作OK確認
 
 --
 環境変数の設定 → 未実施
