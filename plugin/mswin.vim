@@ -91,11 +91,14 @@ onoremap <C-A> <C-C>gggH<C-O>G
 snoremap <C-A> <C-C>gggH<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
-" CTRL-Tab is Next window
-noremap <C-Tab> <C-W>w
-inoremap <C-Tab> <C-O><C-W>w
-cnoremap <C-Tab> <C-C><C-W>w
-onoremap <C-Tab> <C-C><C-W>w
+" 2017-07-16 kawate CTRL-Tab はバッファの切り替えではなく、
+"                   タブの切り替えに使いたいためコメントアウトした
+"                   (vimrc の定義と被っていた)
+"" CTRL-Tab is Next window
+"noremap <C-Tab> <C-W>w
+"inoremap <C-Tab> <C-O><C-W>w
+"cnoremap <C-Tab> <C-C><C-W>w
+"onoremap <C-Tab> <C-C><C-W>w
 
 " CTRL-F4 is Close window
 noremap <C-F4> <C-W>c

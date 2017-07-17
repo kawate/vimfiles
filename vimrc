@@ -244,7 +244,16 @@ let g:changelog_new_date_format = "%d  %u\n\n\t* やったこと:\n\t%c\n\n"
 
 
 " ##########################################################################
-" 入力
+" ショートカットキーの割り当て
+" Vimのデフォルトのショートカットキー割り当てを調べるには、以下のコマンドを使う。
+"   :help index.txt
+" vimrcやプラグインで割り当てられたショートカットキーを調べるには、以下のコマンドを使う。
+"   :map
+"   :nmap           " ノーマルモードだけ表示
+"   :imap           " インサートモードだけ表示
+"   :vmap           " ビジュアルモードだけ表示
+"   :verbose nmap   " そのショートカットキーの定義元ファイル情報も表示
+"   http://blog.ruedap.com/2011/01/11/vim-keyboard-shortcut-key
 " ##########################################################################
 
 " Ctrl-Dを押したときに日付を入力
@@ -268,12 +277,12 @@ inoremap <C-T> <C-R>=strftime("%H:%M")<CR>
 
 " 2008-02-16 タブの切替えを、Mozilla Firefox 風にする。
 " http://rewse.jp/fukugan/article.php?id=762
+" 2011-02-12 あまり使わない<C-S-Tab><C-t><C-w>をコメントアウト → 2017-07-16 再度有効にした
+" 2017-07-16 mswin.vim と定義が被っており(mswinの置き場所を変えたことで？)以下が効かなくなったため、mswin側をコメントアウトした。
 nnoremap <C-Tab> :tabnext<Return>
-" 2011-02-12 あまり使わないキーマップをコメントアウトした
-" nnoremap <C-S-Tab> :tabprevious<Return>
-" nnoremap <C-t> :tabedit<Return>
-" nnoremap <C-w> :tabclose<Return>
-
+nnoremap <C-S-Tab> :tabprevious<Return>
+nnoremap <C-t> :tabedit<Return>
+nnoremap <C-w> :tabclose<Return>
 
 " 2009-10-20 「.」で始まる行を見出しとしたアウトラインを表示
 nnoremap <C-O>  :DotOutlineTree<Return>
