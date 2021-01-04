@@ -84,8 +84,13 @@ Vimを起動しフォント設定で「Migu 1M」が選択されていること�
 vimfilesフォルダのショートカットを C:\Vim に置いておく
 
 ## ファイルの関連付け
-**管理者権限で** コマンドプロンプトを開き、
-assocコマンドとftypeコマンドを使って以下のようにする。
+
+[右クリック]-[プログラムから開く]-[別のプログラムを選択]で、
+[常にこのアプリを使って .txt を開く]をチェック
+
+(以下は昔の方法)
+
+**管理者権限で** コマンドプロンプトを開き、assocコマンドとftypeコマンドを使って以下のようにする。
 ```
 >assoc .txt
 .txt=txtfile
@@ -95,6 +100,15 @@ txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 
 >ftype txtfile
 txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
+```
+
+## 右クリックに「Vimを開く」を追加
+
+- regeditを起動
+- コンピュータ > HKEY_CLASSES_ROOT > * > shell に「Vimで開く」キーを作成
+- その下に「command」キーを作成し、値のデータに以下を設定
+```
+"C:\Vim\gvim.exe" "%1"
 ```
 
 ## 動作を確認する
