@@ -1,4 +1,18 @@
 "===============================================================================
+" Python3 DLL の場所を指定
+"===============================================================================
+" Vimをコンパイルしたときに指定されているバージョンと異なる場合、
+" 実際にインストールされているPython3 DLLの場所の指定が必要
+" https://arimasou16.com/blog/2018/10/19/00266/
+
+" 2023-02-23 会社PCのインストール場所は以下
+"set pythonthreedll=C:\Users\a1195046\AppData\Local\Programs\Python\Python310-32\python310.dll
+
+" 2023-02-23 家のPCのインストール場所は以下
+set pythonthreedll=C:\Users\hkawa\AppData\Local\Programs\Python\Python39-32\python39.dll
+
+
+"===============================================================================
 " NeoBundleによるVimのプラグイン管理
 "===============================================================================
 " プラグインをインストール:
@@ -7,6 +21,10 @@
 "   vim上から :NeoBundleUpdate
 " プラグインを削除:
 "   vimrc から削除したいプラグインの NeoBundle の記述を消して、vim上から :NeoBundleClean を実行。
+"   → 2023-02-23
+"      NeoBundleClean は危険なコマンドなので廃止されたとのこと。
+"      NeoBundle のリストで指定をやめれば削除と同じことになるとのこと（そのプラグインはロードされなくなるので）
+"      詳細: https://github.com/Shougo/neobundle.vim/issues/501
 " ##########################################################################
 " 2014-01-13 neobundleの設定
 " http://d.hatena.ne.jp/xyk/20130930/1380507307
@@ -90,9 +108,26 @@ NeoBundle 'https://github.com/vim-scripts/Align'
 
 " -----
 "VOoM (Vim Outliner of Markups) is a plugin for Vim that emulates a two-pane text outliner.
-NeoBundle 'https://github.com/vim-scripts/VOoM'
+"NeoBundle 'https://github.com/vim-scripts/VOoM'
 " 以下の紹介記事を見てインストール
 " http://syotaro.ruhoh.com/posts/20121216-tips-vim-outliner/
+"
+"2023-02-23
+"NeoBundleで取得できる上記場所にあるのはバージョンが5.1と古くPython3に対応していないため
+"コメントアウトして使用しないようにした
+"以下にある最新版v5.3を手動でインストールした
+"https://www.vim.org/scripts/script.php?script_id=2657
+
+" **INSTALLATION**
+" To install the VOoM plugin manually:
+" 1) Move the contents of folders "autoload", "doc", "plugin" into the
+"    respective folders in your local Vim directory:
+"         $HOME/vimfiles/       (Windows)
+"    This should make commands :Voom, :Voomhelp, :Voomexec, :Voomlog available in all buffers. 
+"    (Do ":echo $HOME" to find out what Vim sees as $HOME.)
+" 2) Execute the :helptags command to update help tags:
+"         :helptags $HOME/vimfiles/doc       (Windows)
+
 
 " -----
 "Indent Guides - インデント可視化プラグイン (2015-01-04)
@@ -256,6 +291,13 @@ let g:changelog_new_date_format = "%d  %u\n\n\t* やったこと:\n\t%c\n\n"
 "   http://blog.ruedap.com/2011/01/11/vim-keyboard-shortcut-key
 " ##########################################################################
 
+" 2022-12-10
+" zoom.vimで実現している*/-キーでの Zoom In/Out を、
+" 他のアプリケーションと同じように Ctrl 付きも動くようにしようと思って
+" 以下のようにしたが動かなかった。普通の文字だとOKだが +/- だとうまくいかない。。
+"noremap <C-+> +
+"noremap <C--> -
+
 " Ctrl-Dを押したときに日付を入力
 "inoremap <C-D> <C-R>=strftime("%Y/%m/%d")<CR>
 inoremap <C-D> <C-R>=strftime("%Y-%m-%d")<CR>
@@ -266,6 +308,7 @@ inoremap <C-D> <C-R>=strftime("%Y-%m-%d")<CR>
 inoremap <C-T> <C-R>=strftime("%H:%M")<CR>
 " 秒まで入力したいなら %H:%M:%S
 
+" ---------------------------------------------------------------------------------
 " Windowsで一般的な切り抜き(CTRL-X)、コピー(CTRL-C)、貼り付け(CTRL-V)をvim でも使う
 " CTRL-C にもともと割り当てられていた、コマンドのキャンセルを行いたい時には、 
 " CTRL-Break(多くの環境では CTRL+Pause)をかわりに使ってください。
@@ -273,7 +316,147 @@ inoremap <C-T> <C-R>=strftime("%H:%M")<CR>
 " source $VIMRUNTIME/mswin.vim
 " source C:\Vim\_runtime/mswin.vim " オリジナルをコピーしてカスタマイズ
 " source $VIMRUNTIME/mswin.vim " 2014-01-13 確認したところ標準と変わらないので元に戻す
-" 2017-07-01 最新のmswin.vim(C:\Vim\vim80\mswin.vim)はCTRL-Fが検索に割り当てられた、今までどおりページスクロールで使用したいため、修正してpluginフォルダに移動してこれを使用することにした。
+" 2017-07-01
+"   最新のmswin.vim(C:\Vim\vim80\mswin.vim)はCTRL-Fが検索に割り当てられたが、
+"   今までどおりページスクロールで使用したいため、修正してpluginフォルダに移動してこれを使用することにした。
+" 2022-12-10 mswin.vim の内容を vimrc に移動した
+"   - 最新のmswin.vimを取得 https://github.com/vim/vim/blob/master/runtime/mswin.vim
+"   - これと C:\Users\hkawa\vimfiles\plugin の mswin.vim と比較して更新されているところをマージ
+"   - この内容を以下に貼り付けて mswin.vim を削除
+"
+" Set options and add mapping such that Vim behaves a lot like MS-Windows
+"
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last Change:	2018 Dec 07
+
+" Bail out if this isn't wanted.
+if exists("g:skip_loading_mswin") && g:skip_loading_mswin
+  finish
+endif
+
+" set the 'cpoptions' to its Vim default
+if 1	" only do this when compiled with expression evaluation
+  let s:save_cpo = &cpoptions
+endif
+set cpo&vim
+
+" set 'selection', 'selectmode', 'mousemodel' and 'keymodel' for MS-Windows
+behave mswin
+
+" backspace and cursor keys wrap to previous/next line
+set backspace=indent,eol,start whichwrap+=<,>,[,]
+
+" backspace in Visual mode deletes selection
+vnoremap <BS> d
+
+if has("clipboard")
+    " CTRL-X and SHIFT-Del are Cut
+    vnoremap <C-X> "+x
+    vnoremap <S-Del> "+x
+
+    " CTRL-C and CTRL-Insert are Copy
+    vnoremap <C-C> "+y
+    vnoremap <C-Insert> "+y
+
+    " CTRL-V and SHIFT-Insert are Paste
+    map <C-V>		"+gP
+    map <S-Insert>		"+gP
+
+    cmap <C-V>		<C-R>+
+    cmap <S-Insert>		<C-R>+
+endif
+
+" Pasting blockwise and linewise selections is not possible in Insert and
+" Visual mode without the +virtualedit feature.  They are pasted as if they
+" were characterwise instead.
+" Uses the paste.vim autoload script.
+" Use CTRL-G u to have CTRL-Z only undo the paste.
+
+if 1
+    exe 'inoremap <script> <C-V> <C-G>u' . paste#paste_cmd['i']
+    exe 'vnoremap <script> <C-V> ' . paste#paste_cmd['v']
+endif
+
+imap <S-Insert>		<C-V>
+vmap <S-Insert>		<C-V>
+
+" Use CTRL-Q to do what CTRL-V used to do
+noremap <C-Q>		<C-V>
+
+" Use CTRL-S for saving, also in Insert mode (<C-O> doesn't work well when
+" using completions).
+noremap <C-S>		:update<CR>
+vnoremap <C-S>		<C-C>:update<CR>
+inoremap <C-S>		<Esc>:update<CR>gi
+
+" For CTRL-V to work autoselect must be off.
+" On Unix we have two selections, autoselect can be used.
+if !has("unix")
+  set guioptions-=a
+endif
+
+" CTRL-Z is Undo; not in cmdline though
+noremap <C-Z> u
+inoremap <C-Z> <C-O>u
+
+" CTRL-Y is Redo (although not repeat); not in cmdline though
+noremap <C-Y> <C-R>
+inoremap <C-Y> <C-O><C-R>
+
+" Alt-Space is System menu
+if has("gui")
+  noremap <M-Space> :simalt ~<CR>
+  inoremap <M-Space> <C-O>:simalt ~<CR>
+  cnoremap <M-Space> <C-C>:simalt ~<CR>
+endif
+
+" CTRL-A is Select all
+noremap <C-A> gggH<C-O>G
+inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
+cnoremap <C-A> <C-C>gggH<C-O>G
+onoremap <C-A> <C-C>gggH<C-O>G
+snoremap <C-A> <C-C>gggH<C-O>G
+xnoremap <C-A> <C-C>ggVG
+
+" 2017-07-16 kawate CTRL-Tab はバッファの切り替えではなく、
+"                   タブの切り替えに使いたいためコメントアウトした
+"                   (vimrc の定義と被っていた)
+"" CTRL-Tab is Next window
+"noremap <C-Tab> <C-W>w
+"inoremap <C-Tab> <C-O><C-W>w
+"cnoremap <C-Tab> <C-C><C-W>w
+"onoremap <C-Tab> <C-C><C-W>w
+
+" CTRL-F4 is Close window
+noremap <C-F4> <C-W>c
+inoremap <C-F4> <C-O><C-W>c
+cnoremap <C-F4> <C-C><C-W>c
+onoremap <C-F4> <C-C><C-W>c
+
+" 2017-05-22 kawate 以下は追加されたが必要ないのでコメントアウトした
+"                   （CTRL-Fはページスクロールで使用したい）
+"if has("gui")
+"  " CTRL-F is the search dialog
+"  noremap  <expr> <C-F> has("gui_running") ? ":promptfind\<CR>" : "/"
+"  inoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-O>:promptfind\<CR>" : "\<C-\>\<C-O>/"
+"  cnoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-C>:promptfind\<CR>" : "\<C-\>\<C-O>/"
+"
+"  " CTRL-H is the replace dialog,
+"  " but in console, it might be backspace, so don't map it there
+"  nnoremap <expr> <C-H> has("gui_running") ? ":promptrepl\<CR>" : "\<C-H>"
+"  inoremap <expr> <C-H> has("gui_running") ? "\<C-\>\<C-O>:promptrepl\<CR>" : "\<C-H>"
+"  cnoremap <expr> <C-H> has("gui_running") ? "\<C-\>\<C-C>:promptrepl\<CR>" : "\<C-H>"
+"endif
+
+" restore 'cpoptions'
+set cpo&
+if 1
+  let &cpoptions = s:save_cpo
+  unlet s:save_cpo
+endif
+
+" ---------------------------------------------------------------------------------
+
 
 " 2008-02-16 タブの切替えを、Mozilla Firefox 風にする。
 " http://rewse.jp/fukugan/article.php?id=762
