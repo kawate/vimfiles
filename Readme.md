@@ -116,6 +116,9 @@ txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 - タブの切替えを、Mozilla Firefox 風にする
 - IME状態に応じたカーソル色を設定 (IME ONで赤くなる.gvimrcで指定)
 
+## ShiftJISからUTF8に変更する (2023-02-06追加)
+C:\Vim\switches\catalog にある utf-8.vim C:\Vim\switches\enabled にコピーする。
+そうするといままで(ShiftJISで)作成されたファイルが文字化けするので、UTF8に変更する。
 
 # NeoBundleとGitによる管理への移行の内容
 
