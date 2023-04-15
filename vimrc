@@ -49,6 +49,16 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " -----
+" 2023-04-15 
+" https://www.vim.org/scripts/script.php?script_id=2944
+" ビジュアルモード (v) で範囲選択した状態で
+" Shift+*を入力すると範囲されている箇所に対して検索する
+NeoBundle 'thinca/vim-visualstar'
+" ※ VS Code だと Shift+* を押すだけで適当な範囲の日本語が検索されないため
+"    設定でこれを有効にした(vim.visualstar)
+"    これと同じ動きにするためにインストールした
+
+" -----
 " 2016-11-26 同じウィンドウで開く
 " 以降の「singleton#enable」で有効にしている
 NeoBundle 'thinca/vim-singleton'
@@ -127,6 +137,11 @@ NeoBundle 'https://github.com/vim-scripts/Align'
 "    (Do ":echo $HOME" to find out what Vim sees as $HOME.)
 " 2) Execute the :helptags command to update help tags:
 "         :helptags $HOME/vimfiles/doc       (Windows)
+"
+"2023-02-24
+"vim.org の説明だと GitHub mirror は以下ということでここには最新バージョンがあった。
+"このためこちらをNeoBundleで指定してみたが、それだとvimが起動しなくなったので取りやめた。
+"https://github.com/vim-voom/VOoM
 
 
 " -----
