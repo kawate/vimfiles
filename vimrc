@@ -1,131 +1,131 @@
 "===============================================================================
-" Python3 DLL �̏ꏊ���w��
+" Python3 DLL の場所を指定
 "===============================================================================
-" Vim���R���p�C�������Ƃ��Ɏw�肳��Ă���o�[�W�����ƈقȂ�ꍇ�A
-" ���ۂɃC���X�g�[������Ă���Python3 DLL�̏ꏊ�̎w�肪�K�v
+" Vimをコンパイルしたときに指定されているバージョンと異なる場合、
+" 実際にインストールされているPython3 DLLの場所の指定が必要
 " https://arimasou16.com/blog/2018/10/19/00266/
 
-" 2023-02-23 ���PC�̃C���X�g�[���ꏊ�͈ȉ�
+" 2023-02-23 会社PCのインストール場所は以下
 "set pythonthreedll=C:\Users\a1195046\AppData\Local\Programs\Python\Python310-32\python310.dll
 
-" 2023-02-23 �Ƃ�PC�̃C���X�g�[���ꏊ�͈ȉ�
+" 2023-02-23 家のPCのインストール場所は以下
 set pythonthreedll=C:\Users\hkawa\AppData\Local\Programs\Python\Python39-32\python39.dll
 
 
 "===============================================================================
-" NeoBundle�ɂ��Vim�̃v���O�C���Ǘ�
+" NeoBundleによるVimのプラグイン管理
 "===============================================================================
-" �v���O�C�����C���X�g�[��:
-"   vimrc �� NeoBundle �Ŏw�肵�āAvim�ォ�� :NeoBundleInstall
-" �A�b�v�f�[�g:
-"   vim�ォ�� :NeoBundleUpdate
-" �v���O�C�����폜:
-"   vimrc ����폜�������v���O�C���� NeoBundle �̋L�q�������āAvim�ォ�� :NeoBundleClean �����s�B
-"   �� 2023-02-23
-"      NeoBundleClean �͊댯�ȃR�}���h�Ȃ̂Ŕp�~���ꂽ�Ƃ̂��ƁB
-"      NeoBundle �̃��X�g�Ŏw�����߂�΍폜�Ɠ������ƂɂȂ�Ƃ̂��Ɓi���̃v���O�C���̓��[�h����Ȃ��Ȃ�̂Łj
-"      �ڍ�: https://github.com/Shougo/neobundle.vim/issues/501
+" プラグインをインストール:
+"   vimrc の NeoBundle で指定して、vim上から :NeoBundleInstall
+" アップデート:
+"   vim上から :NeoBundleUpdate
+" プラグインを削除:
+"   vimrc から削除したいプラグインの NeoBundle の記述を消して、vim上から :NeoBundleClean を実行。
+"   → 2023-02-23
+"      NeoBundleClean は危険なコマンドなので廃止されたとのこと。
+"      NeoBundle のリストで指定をやめれば削除と同じことになるとのこと（そのプラグインはロードされなくなるので）
+"      詳細: https://github.com/Shougo/neobundle.vim/issues/501
 " ##########################################################################
-" 2014-01-13 neobundle�̐ݒ�
+" 2014-01-13 neobundleの設定
 " http://d.hatena.ne.jp/xyk/20130930/1380507307
 " http://www.slideshare.net/Shougo/neobundlevim
 " http://wp.graphact.com/2012/11/09/hello-neobundle-vim
 " ##########################################################################
 
-" vim�N�����̂�runtimepath��neobundle.vim��ǉ�����neobundle.vim���Ăяo����悤�ɂ���
+" vim起動時のみruntimepathにneobundle.vimを追加してneobundle.vimを呼び出せるようにする
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
-" NeoBundle��������
+" NeoBundleを初期化
 call neobundle#begin(expand('~/.vim/bundle/'))
-" ----- �C���X�g�[������v���O�C���̋L�q ���������� -----
-" �����Ɏg�p�������v���O�C���̃��|�W�g���A�h���X���L�q����
-" github, vim.org �ɑ��݂���v���O�C���̃A�h���X�͏ȗ��ł���
-"   ��: 'Shougo/unite.vim' �� 'git://github.com/Shougo/unite.vim.git' �Ɠ���
-"       'CSApprox' �̂悤�Ƀv���O�C�����݂̂���Vim.org�̃v���O�C����\��
+" ----- インストールするプラグインの記述 こここから -----
+" ここに使用したいプラグインのリポジトリアドレスを記述する
+" github, vim.org に存在するプラグインのアドレスは省略できる
+"   例: 'Shougo/unite.vim' は 'git://github.com/Shougo/unite.vim.git' と同じ
+"       'CSApprox' のようにプラグイン名のみだとVim.orgのプラグインを表す
 
-" NeoBundle���̂�neobundle�ŊǗ�����ꍇ��NeoBundleFetch���g��
+" NeoBundle自体をneobundleで管理する場合はNeoBundleFetchを使う
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " -----
 " 2023-04-15 
 " https://www.vim.org/scripts/script.php?script_id=2944
-" �r�W���A�����[�h (v) �Ŕ͈͑I��������Ԃ�
-" Shift+*����͂���Ɣ͈͂���Ă���ӏ��ɑ΂��Č�������
+" ビジュアルモード (v) で範囲選択した状態で
+" Shift+*を入力すると範囲されている箇所に対して検索する
 NeoBundle 'thinca/vim-visualstar'
-" �� VS Code ���� Shift+* �����������œK���Ȕ͈͂̓��{�ꂪ��������Ȃ�����
-"    �ݒ�ł����L���ɂ���(vim.visualstar)
-"    ����Ɠ��������ɂ��邽�߂ɃC���X�g�[������
+" ※ VS Code だと Shift+* を押すだけで適当な範囲の日本語が検索されないため
+"    設定でこれを有効にした(vim.visualstar)
+"    これと同じ動きにするためにインストールした
 
 " -----
-" 2016-11-26 �����E�B���h�E�ŊJ��
-" �ȍ~�́usingleton#enable�v�ŗL���ɂ��Ă���
+" 2016-11-26 同じウィンドウで開く
+" 以降の「singleton#enable」で有効にしている
 NeoBundle 'thinca/vim-singleton'
 
 " -----
 NeoBundle 'Shougo/unite.vim'
 
 " -----
-" unite-outline: �\�[�X�t�@�C������͂��A�A�E�g���C����\������ (2015-03-08)
-" :Unite outline�ŋN������
-" �� unite-outline�Ɠ��l�̂��Ƃ��ʂɃC���X�g�[������Voom�ł��\
+" unite-outline: ソースファイルを解析し、アウトラインを表示する (2015-03-08)
+" :Unite outlineで起動する
+" ※ unite-outlineと同様のことが別にインストールしたVoomでも可能
 "NeoBundle 'h1mesuke/unite-outline'
-"���ŏ�����w�肵�Ă���G���[�ɂȂ����̂Ł��ɕύX����:NeoBundleClean��:NeoBundleUpdate�����瓮���悤�ɂȂ���
+"↑最初これ指定してたらエラーになったので↓に変更して:NeoBundleCleanと:NeoBundleUpdateしたら動くようになった
 NeoBundle 'https://github.com/Shougo/unite-outline'
-" �� C++�̃R�[�h������Ƃ��� exuberant ctags ���K�v�Ȃ̂ňȉ��ɃC���X�g�[��(2015-03-08)
+" ※ C++のコードを見るときは exuberant ctags が必要なので以下にインストール(2015-03-08)
 "    C:\data\shortcuts\ctags.exe
 
-" �u:,u�v�Ɠ��͂����Ƃ���unite-outline�̈ȉ��̃R�}���h�����s����
+" 「:,u」と入力したときにunite-outlineの以下のコマンドを実行する
 "  :Unite -no-quit -vertical outline
-"    -no-quit: �A�E�g���C���̃o�b�t�@����Ȃ��悤�ɂ���
-"    -vertical: ���������ŊJ��
+"    -no-quit: アウトラインのバッファを閉じないようにする
+"    -vertical: 垂直分割で開く
 "http://hinagishi.hateblo.jp/entry/2011/11/18/135701
 noremap ,u <ESC>:Unite -no-quit -vertical outline<Return>
 
 " -----
-" autocomplpop.vim: �L�[���[�h�⊮���X�g�������ŏo��
+" autocomplpop.vim: キーワード補完リストを自動で出す
 NeoBundle 'https://github.com/vim-scripts/AutoComplPop'
-"  �̂̂���
-"    http://blog.blueblack.net/item_164 �̃����N����A
-"    http://www.vim.org/scripts/script.php?script_id=1879 �̍ŐV�ł��_�E�����[�h���A
+"  昔のやり方
+"    http://blog.blueblack.net/item_164 のリンクから、
+"    http://www.vim.org/scripts/script.php?script_id=1879 の最新版をダウンロードし、
 "    vim-autocomplpop.zip
-"    �W�J�����t�@�C���Q�� _runtime �t�H���_�Ɉړ�
+"    展開したファイル群を _runtime フォルダに移動
 
 " -----
-"eblook.vim: eblook�v���O�������g���Ď���������
+"eblook.vim: eblookプログラムを使って辞書を引く
 NeoBundle 'https://github.com/deton/eblook.vim'
-"  �̂̂���:
-"     �ȉ�URL����_�E�����[�h�ieblook-vim-1.2.0.tar.bz2.tar.bz2�j
+"  昔のやり方:
+"     以下URLからダウンロード（eblook-vim-1.2.0.tar.bz2.tar.bz2）
 "     http://www1.interq.or.jp/~deton/eblook-vim/
-"     �𓀂����t�@�C����README.markdown���Q�l�Ɉړ�
-"     �������AVim�̃o�[�W�����A�b�v�Ŗʓ|�ɂȂ�Ȃ��悤�� runtime �ł͂Ȃ� _runtime �t�H���_�Ɉړ�
+"     解凍したファイルをREADME.markdownを参考に移動
+"     ただし、Vimのバージョンアップで面倒にならないように runtime ではなく _runtime フォルダに移動
 
 " -----
-"Alin.vim: �R�[�h�̐��`�c�[��
+"Alin.vim: コードの整形ツール
 NeoBundle 'https://github.com/vim-scripts/Align'
-" �ȉ��̂悤�ȃR�[�h��I���� \tsp ����͂����
+" 以下のようなコードを選択後 \tsp を入力すると
 " one two three four five
 " six seven eight nine ten
 " eleven twelve thirteen fourteen fifteen
-" �ȉ��̂悤�ɐ��`���Ă����
+" 以下のように整形してくれる
 " one    two    three    four     five
 " six    seven  eight    nine     ten
 " eleven twelve thirteen fourteen fifteen
-" �ڂ����g������
+" 詳しい使い方は
 " http://nanasi.jp/vim/align.html
-" �Ȃǂ��Q��
+" などを参照
 
 " -----
 "VOoM (Vim Outliner of Markups) is a plugin for Vim that emulates a two-pane text outliner.
 "NeoBundle 'https://github.com/vim-scripts/VOoM'
-" �ȉ��̏Љ�L�������ăC���X�g�[��
+" 以下の紹介記事を見てインストール
 " http://syotaro.ruhoh.com/posts/20121216-tips-vim-outliner/
 "
 "2023-02-23
-"NeoBundle�Ŏ擾�ł����L�ꏊ�ɂ���̂̓o�[�W������5.1�ƌÂ�Python3�ɑΉ����Ă��Ȃ�����
-"�R�����g�A�E�g���Ďg�p���Ȃ��悤�ɂ���
-"�ȉ��ɂ���ŐV��v5.3���蓮�ŃC���X�g�[������
+"NeoBundleで取得できる上記場所にあるのはバージョンが5.1と古くPython3に対応していないため
+"コメントアウトして使用しないようにした
+"以下にある最新版v5.3を手動でインストールした
 "https://www.vim.org/scripts/script.php?script_id=2657
 
 " **INSTALLATION**
@@ -139,102 +139,102 @@ NeoBundle 'https://github.com/vim-scripts/Align'
 "         :helptags $HOME/vimfiles/doc       (Windows)
 "
 "2023-02-24
-"vim.org �̐������� GitHub mirror �͈ȉ��Ƃ������Ƃł����ɂ͍ŐV�o�[�W�������������B
-"���̂��߂������NeoBundle�Ŏw�肵�Ă݂����A���ꂾ��vim���N�����Ȃ��Ȃ����̂Ŏ���߂��B
+"vim.org の説明だと GitHub mirror は以下ということでここには最新バージョンがあった。
+"このためこちらをNeoBundleで指定してみたが、それだとvimが起動しなくなったので取りやめた。
 "https://github.com/vim-voom/VOoM
 
 
 " -----
-"Indent Guides - �C���f���g�����v���O�C�� (2015-01-04)
+"Indent Guides - インデント可視化プラグイン (2015-01-04)
 NeoBundle 'nathanaelkane/vim-indent-guides'
-" �ȉ��̏Љ�L�������ăC���X�g�[��
+" 以下の紹介記事を見てインストール
 " http://qiita.com/tekkoc/items/923d7a7cf124e63adab5
 " http://www.absolute-keitarou.net/blog/?p=1127
 " http://www.mk-mode.com/octopress/2014/02/10/vim-installation-of-indent-plugin/
-" Vim �N���� vim-indent-guides �������N��
+" Vim 起動時 vim-indent-guides を自動起動
 let g:indent_guides_enable_on_vim_startup=1
-" �K�C�h���X�^�[�g����C���f���g�̗�
+" ガイドをスタートするインデントの量
 let g:indent_guides_start_level=2
-" �����J���[����
+" 自動カラー無効
 let g:indent_guides_auto_colors=0
-" ��Ԗڂ̃C���f���g�̐F
+" 奇数番目のインデントの色
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#444433 ctermbg=black
-" �����Ԗڂ̃C���f���g�̐F
+" 偶数番目のインデントの色
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#333344 ctermbg=darkgray
-" �K�C�h�̕�
+" ガイドの幅
 let g:indent_guides_guide_size = 1
 
 
 " -----
-"jedi.vim - Python��vim�ŏ����Ƃ��ɃR�[�h�⊮���s���Ă���� (2015-01-04)
+"jedi.vim - Pythonをvimで書くときにコード補完を行ってくれる (2015-01-04)
 "http://qiita.com/tekkoc/items/923d7a7cf124e63adab5
 "http://togattti.hateblo.jp/entry/2013/10/16/214911
 NeoBundle 'davidhalter/jedi-vim'
 
 " -----
 "Molokai color scheme for Vim
-"���J���[�X�L�[���̐ݒ�� gvimrc �ɋL�ڂ���
+"※カラースキームの設定は gvimrc に記載する
 NeoBundle 'https://github.com/tomasr/molokai'
 
 " -----
-" zoom.vim : �u+�v�A�u-�v�L�[�ŕ����̑傫����ύX�ł��� (2015-11-23)
-"NeoBundle 'https://github.com/taku-o/downloads/raw/master/zoom.vim' <= ���ꂾ�Ƃ��܂��C���X�g�[�����ꂸ
+" zoom.vim : 「+」、「-」キーで文字の大きさを変更できる (2015-11-23)
+"NeoBundle 'https://github.com/taku-o/downloads/raw/master/zoom.vim' <= これだとうまくインストールされず
 NeoBundle 'vim-scripts/zoom.vim'
 
 
 " -----
-" grep.vim 2017-02-04 �� ���܂������Ȃ��i�G���[�Ō��ʂ��łȂ��j�̂Ŏg���̎~�߂�(2017-02-05)
-" - :Rgrep �ŊȒP�ȑ���ōċA�I�� grep ���ł���
-" http://myenigma.hatenablog.com/entry/2016/01/17/184925#�����K��grep���邽�߂�vimrc�ݒ�
+" grep.vim 2017-02-04 → うまく動かない（エラーで結果がでない）ので使うの止めた(2017-02-05)
+" - :Rgrep で簡単な操作で再帰的な grep ができる
+" http://myenigma.hatenablog.com/entry/2016/01/17/184925#より快適にgrepするためのvimrc設定
 "NeoBundle 'vim-scripts/grep.vim'
-" grep.vim �� grep �̂ق��A find �� xargs ���g���݂����Ȃ̂ŁAC:\data\shortcuts �ɒu�����B
+" grep.vim は grep のほか、 find と xargs を使うみたいなので、C:\data\shortcuts に置いた。
 "let Grep_Path = 'C:\data\shortcuts\grep.exe' 
 "let Grep_Xargs_Path = 'C:\data\shortcuts\xargs.exe' 
 "let Grep_Find_Path = 'C:\data\shortcuts\find.exe'
 "let Grep_Shell_Quote_Char = '"'
 
-" ----- �C���X�g�[������v���O�C���̋L�q �����܂� -----
+" ----- インストールするプラグインの記述 ここまで -----
 call neobundle#end()
 
 
-" �ǂݍ��񂾃v���O�C�����܂߁A�t�@�C���^�C�v�̌��o�A�t�@�C���^�C�v�ʃv���O�C��/�C���f���g��L��������
+" 読み込んだプラグインも含め、ファイルタイプの検出、ファイルタイプ別プラグイン/インデントを有効化する
 filetype plugin indent on
 
-" ���C���X�g�[���̃v���O�C��������ꍇ�A�C���X�g�[�����邩�ǂ�����q�˂Ă����悤�ɂ���ݒ�
-" ���񕷂����Ǝז��ȏꍇ������̂ŁA���̐ݒ�͔C�ӂł��B
+" 未インストールのプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
+" 毎回聞かれると邪魔な場合もあるので、この設定は任意です。
 NeoBundleCheck
 
 
 " ##########################################################################
 
 
-" �ǉ��� runtime ��u���ꏊ(2010-11-26)
-" -> NeoBundle�Ɉڍs���Ă��邽�߃R�����g�A�E�g(2016-05-02)
+" 追加の runtime を置く場所(2010-11-26)
+" -> NeoBundleに移行しているためコメントアウト(2016-05-02)
 " set runtimepath+=C:\Vim\_runtime
 
 
 " ##########################################################################
-" �����E�B���h�E�ŊJ���悤�ɂ���
+" 同じウィンドウで開くようにする
 " ##########################################################################
 "" 2016-11-12
-"" �ȉ���ǉ����Ă����ƁA�t�@�C���̊֘A�t������Ƃ��ɁA
-"" ftype�R�}���h�ňȉ��̂悤�Ɂu--remote-tab-silent�v���w�肵�Ȃ��Ă�OK�ɂȂ�B
+"" 以下を追加しておくと、ファイルの関連付けするときに、
+"" ftypeコマンドで以下のように「--remote-tab-silent」を指定しなくてもOKになる。
 "" "C:\vim\gvim.exe" --remote-tab-silent "%1"
-"" ���̂��߁Aftype �R�}���h�ŏ�L�̂悤�Ȏw�肪������̂͂��ׂč폜�����B
-"" ����́AWindows��GUI�̐ݒ��gvim���w�肷��悤�ɂ���B
-"" ��L������΁A�t�@�C�����w�肵��gvim���J���ƕK���^�u�ŊJ�����悤�ɂȂ�B
-"" �ʃE�B���h�E�ɂ������ꍇ��gvim�Ɉ�����t���Ȃ��ŋN������Ηǂ��B
+"" このため、ftype コマンドで上記のような指定があるものはすべて削除した。
+"" 今後は、WindowsのGUIの設定でgvimを指定するようにする。
+"" 上記があれば、ファイルを指定してgvimを開くと必ずタブで開かれるようになる。
+"" 別ウィンドウにしたい場合はgvimに引数を付けないで起動すれば良い。
 ""
-"" �֘A���: �E�N���b�N�̃��j���[�ɁuVim�ŊJ���v��ǉ�������@
-"" �ȉ��̃��W�X�g���ɐݒ肷��B
-"" HKEY_CLASSES_ROOT �� * �� shell �� Vim�ŊJ��
-""                                    Vim�ŊJ��(--remote-tab-silent)
+"" 関連情報: 右クリックのメニューに「Vimで開く」を追加する方法
+"" 以下のレジストリに設定する。
+"" HKEY_CLASSES_ROOT ⇒ * ⇒ shell ⇒ Vimで開く
+""                                    Vimで開く(--remote-tab-silent)
 ""
-"" ���u--remote-tab-silent�v���ƃp�X�Ɂu#�v���܂ރt�@�C�����G���[�ŊJ���Ȃ����Ƃ�����(2016-11-12)
+"" ※「--remote-tab-silent」だとパスに「#」を含むファイルがエラーで開けないことがある(2016-11-12)
 ""
-"" �{�ݒ�̐���:
+"" 本設定の説明:
 ""   http://tyru.hatenablog.com/entry/20130430/vim_resident
-""�u--remote-tab-silent�v�ɂ��Ă̐����F
+""「--remote-tab-silent」についての説明：
 ""   http://mattn.kaoriya.net/software/vim/20071004163036.htm
 ""===============================================================================
 "" If starting gvim && arguments were given
@@ -255,89 +255,89 @@ NeoBundleCheck
 "  endif
 
 " 2016-11-26
-" ��L�͎~�߂� vim-singleton �v���O�C�����g���悤�ɂ��� (�t�@�C�����ɃX�y�[�X���܂܂�Ă���ƁA�X�y�[�X�ŕ������ꂽ�����̃t�@�C���Ƃ��Ĉ����Ă��܂�����)
+" 上記は止めて vim-singleton プラグインを使うようにした (ファイル名にスペースが含まれていると、スペースで分割された複数のファイルとして扱われてしまうため)
 " http://tyru.hatenablog.com/entry/20130430/vim_resident
-" .vimrc ���̏�̕��ɏ������������� (�t�@�C�����J�����ۂɁA���łɋN���ς݂� Vim ���������ꍇ�͂�����ŊJ���đ����ɏI�����邽��) �������A�ݒ�͂��̑O�ɋL�q���� (g:singleton#ignore_pattern �ɏ��O����t�@�C���̃p�^�[���������Ă����΁A�����̃t�@�C���������ꍇ�͕��ʂɊJ�����A�Ȃ�)
+" .vimrc 内の上の方に書いた方がいい (ファイルを開いた際に、すでに起動済みの Vim があった場合はそちらで開いて即座に終了するため) ただし、設定はこの前に記述する (g:singleton#ignore_pattern に除外するファイルのパターンを書いておけば、それらのファイルだった場合は普通に開かれる、など)
 call singleton#enable()
 
 
 " ##########################################################################
 " 2007-03-21 kawate
-" ChangeLog ��ҏW����(changelog.vim) http://vimwiki.net/?tips%2F93
+" ChangeLog を編集する(changelog.vim) http://vimwiki.net/?tips%2F93
 " ##########################################################################
 
-" ChangeLog �`���̃t�@�C����ҏW���邽�߂̃v���O�C���Bftplugin �Ƃ��� Vim �ɕW
-" ���œY�t����Ă��܂��BChangeLog* �� changelog* �Ƃ��������O�̃t�@�C����ǂ�
-" ���ނƁA�����I��'filetype' �� 'changelog' �ɂȂ�A���̂悤�ȃR�}���h���g����
-" �悤�ɂȂ�܂��B
+" ChangeLog 形式のファイルを編集するためのプラグイン。ftplugin として Vim に標
+" 準で添付されています。ChangeLog* や changelog* といった名前のファイルを読み
+" 込むと、自動的に'filetype' が 'changelog' になり、次のようなコマンドが使える
+" ようになります。
 
-" :NewChangelogEntry     �K�؂ɃA�C�e����ǉ�����B
-" �o�b�t�@���[�J���}�b�s���O:
-" <Leader>o              ��Ɠ��l�ɓK�؂ɃA�C�e����ǉ�����B
-"                         <leader>��vim�G�f�B�^�f�t�H���g�ł́u\�v�������B
-" �����̃R�}���h�ő}������郆�[�U����ύX����ɂ́A���̕ϐ���ݒ肵�܂��B
+" :NewChangelogEntry     適切にアイテムを追加する。
+" バッファローカルマッピング:
+" <Leader>o              上と同様に適切にアイテムを追加する。
+"                         <leader>はvimエディタデフォルトでは「\」を押す。
+" これらのコマンドで挿入されるユーザ名を変更するには、次の変数を設定します。
 let g:changelog_username = 'Hiroyuki KAWATE <Hiroyuki.Kawate@anritsu.com>'
-let g:changelog_new_date_format = "%d  %u\n\n\t* ���������:\n\t%c\n\n"
+let g:changelog_new_date_format = "%d  %u\n\n\t* やったこと:\n\t%c\n\n"
 
-" ���ɂ��A���̕ϐ��ł��̃v���O�C�����J�X�^�}�C�Y�ł��܂��B
-" �G���g���ɓ������t(�Ǝ���)�̏����B
+" 他にも、次の変数でこのプラグインをカスタマイズできます。
+" エントリに入れる日付(と時間)の書式。
 " let g:changelog_timeformat
-" �G���g�����쐬����Ƃ��̏����B
+" エントリを作成するときの書式。
 " let g:changelog_new_date_format
-" �A�C�e�����쐬����Ƃ��̏����B
+" アイテムを作成するときの書式。
 " let g:changelog_new_entry_format
-" �G���g����T�����߂̌����p�^�[���B
+" エントリを探すための検索パターン。
 " let g:changelog_date_entry_search
 
-" �Q�ƁF
+" 参照：
 " :h ft-changelog-plugin
 
 
 " ##########################################################################
-" �V���[�g�J�b�g�L�[�̊��蓖��
-" Vim�̃f�t�H���g�̃V���[�g�J�b�g�L�[���蓖�Ă𒲂ׂ�ɂ́A�ȉ��̃R�}���h���g���B
+" ショートカットキーの割り当て
+" Vimのデフォルトのショートカットキー割り当てを調べるには、以下のコマンドを使う。
 "   :help index.txt
-" vimrc��v���O�C���Ŋ��蓖�Ă�ꂽ�V���[�g�J�b�g�L�[�𒲂ׂ�ɂ́A�ȉ��̃R�}���h���g���B
+" vimrcやプラグインで割り当てられたショートカットキーを調べるには、以下のコマンドを使う。
 "   :map
-"   :nmap           " �m�[�}�����[�h�����\��
-"   :imap           " �C���T�[�g���[�h�����\��
-"   :vmap           " �r�W���A�����[�h�����\��
-"   :verbose nmap   " ���̃V���[�g�J�b�g�L�[�̒�`���t�@�C�������\��
+"   :nmap           " ノーマルモードだけ表示
+"   :imap           " インサートモードだけ表示
+"   :vmap           " ビジュアルモードだけ表示
+"   :verbose nmap   " そのショートカットキーの定義元ファイル情報も表示
 "   http://blog.ruedap.com/2011/01/11/vim-keyboard-shortcut-key
 " ##########################################################################
 
 " 2022-12-10
-" zoom.vim�Ŏ������Ă���*/-�L�[�ł� Zoom In/Out ���A
-" ���̃A�v���P�[�V�����Ɠ����悤�� Ctrl �t���������悤�ɂ��悤�Ǝv����
-" �ȉ��̂悤�ɂ����������Ȃ������B���ʂ̕�������OK���� +/- ���Ƃ��܂������Ȃ��B�B
+" zoom.vimで実現している*/-キーでの Zoom In/Out を、
+" 他のアプリケーションと同じように Ctrl 付きも動くようにしようと思って
+" 以下のようにしたが動かなかった。普通の文字だとOKだが +/- だとうまくいかない。。
 "noremap <C-+> +
 "noremap <C--> -
 
-" Ctrl-D���������Ƃ��ɓ��t�����
+" Ctrl-Dを押したときに日付を入力
 "inoremap <C-D> <C-R>=strftime("%Y/%m/%d")<CR>
 inoremap <C-D> <C-R>=strftime("%Y-%m-%d")<CR>
 
 " 2014-05-22
-" Ctrl-T���������Ƃ��Ɏ��������
-" �� Ctrl-T�̓^�O�W�����v�́u���O�̃^�O�ɖ߂�v�Ɋ��蓖�Ă��Ă���݂����Ȃ̂Œ��ӂ��K�v
+" Ctrl-Tを押したときに時刻を入力
+" ※ Ctrl-Tはタグジャンプの「直前のタグに戻る」に割り当てられているみたいなので注意が必要
 inoremap <C-T> <C-R>=strftime("%H:%M")<CR>
-" �b�܂œ��͂������Ȃ� %H:%M:%S
+" 秒まで入力したいなら %H:%M:%S
 
 " ---------------------------------------------------------------------------------
-" Windows�ň�ʓI�Ȑ؂蔲��(CTRL-X)�A�R�s�[(CTRL-C)�A�\��t��(CTRL-V)��vim �ł��g��
-" CTRL-C �ɂ��Ƃ��Ɗ��蓖�Ă��Ă����A�R�}���h�̃L�����Z�����s���������ɂ́A 
-" CTRL-Break(�����̊��ł� CTRL+Pause)�������Ɏg���Ă��������B
-" �����悤�ɁA��`�I�����������ɂ́ACTRL-V �̂�����CTRL-Q���g���Ă��������B
+" Windowsで一般的な切り抜き(CTRL-X)、コピー(CTRL-C)、貼り付け(CTRL-V)をvim でも使う
+" CTRL-C にもともと割り当てられていた、コマンドのキャンセルを行いたい時には、 
+" CTRL-Break(多くの環境では CTRL+Pause)をかわりに使ってください。
+" 同じように、矩形選択したい時には、CTRL-V のかわりにCTRL-Qを使ってください。
 " source $VIMRUNTIME/mswin.vim
-" source C:\Vim\_runtime/mswin.vim " �I���W�i�����R�s�[���ăJ�X�^�}�C�Y
-" source $VIMRUNTIME/mswin.vim " 2014-01-13 �m�F�����Ƃ���W���ƕς��Ȃ��̂Ō��ɖ߂�
+" source C:\Vim\_runtime/mswin.vim " オリジナルをコピーしてカスタマイズ
+" source $VIMRUNTIME/mswin.vim " 2014-01-13 確認したところ標準と変わらないので元に戻す
 " 2017-07-01
-"   �ŐV��mswin.vim(C:\Vim\vim80\mswin.vim)��CTRL-F�������Ɋ��蓖�Ă�ꂽ���A
-"   ���܂łǂ���y�[�W�X�N���[���Ŏg�p���������߁A�C������plugin�t�H���_�Ɉړ����Ă�����g�p���邱�Ƃɂ����B
-" 2022-12-10 mswin.vim �̓��e�� vimrc �Ɉړ�����
-"   - �ŐV��mswin.vim���擾 https://github.com/vim/vim/blob/master/runtime/mswin.vim
-"   - ����� C:\Users\hkawa\vimfiles\plugin �� mswin.vim �Ɣ�r���čX�V����Ă���Ƃ�����}�[�W
-"   - ���̓��e���ȉ��ɓ\��t���� mswin.vim ���폜
+"   最新のmswin.vim(C:\Vim\vim80\mswin.vim)はCTRL-Fが検索に割り当てられたが、
+"   今までどおりページスクロールで使用したいため、修正してpluginフォルダに移動してこれを使用することにした。
+" 2022-12-10 mswin.vim の内容を vimrc に移動した
+"   - 最新のmswin.vimを取得 https://github.com/vim/vim/blob/master/runtime/mswin.vim
+"   - これと C:\Users\hkawa\vimfiles\plugin の mswin.vim と比較して更新されているところをマージ
+"   - この内容を以下に貼り付けて mswin.vim を削除
 "
 " Set options and add mapping such that Vim behaves a lot like MS-Windows
 "
@@ -433,9 +433,9 @@ onoremap <C-A> <C-C>gggH<C-O>G
 snoremap <C-A> <C-C>gggH<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
-" 2017-07-16 kawate CTRL-Tab �̓o�b�t�@�̐؂�ւ��ł͂Ȃ��A
-"                   �^�u�̐؂�ւ��Ɏg���������߃R�����g�A�E�g����
-"                   (vimrc �̒�`�Ɣ���Ă���)
+" 2017-07-16 kawate CTRL-Tab はバッファの切り替えではなく、
+"                   タブの切り替えに使いたいためコメントアウトした
+"                   (vimrc の定義と被っていた)
 "" CTRL-Tab is Next window
 "noremap <C-Tab> <C-W>w
 "inoremap <C-Tab> <C-O><C-W>w
@@ -448,8 +448,8 @@ inoremap <C-F4> <C-O><C-W>c
 cnoremap <C-F4> <C-C><C-W>c
 onoremap <C-F4> <C-C><C-W>c
 
-" 2017-05-22 kawate �ȉ��͒ǉ����ꂽ���K�v�Ȃ��̂ŃR�����g�A�E�g����
-"                   �iCTRL-F�̓y�[�W�X�N���[���Ŏg�p�������j
+" 2017-05-22 kawate 以下は追加されたが必要ないのでコメントアウトした
+"                   （CTRL-Fはページスクロールで使用したい）
 "if has("gui")
 "  " CTRL-F is the search dialog
 "  noremap  <expr> <C-F> has("gui_running") ? ":promptfind\<CR>" : "/"
@@ -473,47 +473,47 @@ endif
 " ---------------------------------------------------------------------------------
 
 
-" 2008-02-16 �^�u�̐ؑւ����AMozilla Firefox ���ɂ���B
+" 2008-02-16 タブの切替えを、Mozilla Firefox 風にする。
 " http://rewse.jp/fukugan/article.php?id=762
-" 2011-02-12 ���܂�g��Ȃ�<C-S-Tab><C-t><C-w>���R�����g�A�E�g �� 2017-07-16 �ēx�L���ɂ���
-" 2017-07-16 mswin.vim �ƒ�`������Ă���(mswin�̒u���ꏊ��ς������ƂŁH)�ȉ��������Ȃ��Ȃ������߁Amswin�����R�����g�A�E�g�����B
+" 2011-02-12 あまり使わない<C-S-Tab><C-t><C-w>をコメントアウト → 2017-07-16 再度有効にした
+" 2017-07-16 mswin.vim と定義が被っており(mswinの置き場所を変えたことで？)以下が効かなくなったため、mswin側をコメントアウトした。
 nnoremap <C-Tab> :tabnext<Return>
 nnoremap <C-S-Tab> :tabprevious<Return>
 nnoremap <C-t> :tabedit<Return>
 nnoremap <C-w> :tabclose<Return>
 
-" 2009-10-20 �u.�v�Ŏn�܂�s�����o���Ƃ����A�E�g���C����\��
+" 2009-10-20 「.」で始まる行を見出しとしたアウトラインを表示
 nnoremap <C-O>  :DotOutlineTree<Return>
 
 " ##########################################################################
-" �\��
+" 表示
 " ##########################################################################
 
-" �N�����̃��b�Z�[�W������
+" 起動時のメッセージを消す
 set shortmess+=I
 
-" �^�u����s��\�� (list:�\��)
+" タブや改行を表示 (list:表示)
 set list
 
-" �ǂ̕����Ń^�u����s��\�����邩�̐ݒ�
+" どの文字でタブや改行を表示するかの設定
 set listchars=tab:>-,extends:<,trail:-,eol:<
 
-" 2010-11-28 �S�p�X�y�[�X���D�F(Gray)�Ō�����悤�ɂ���
+" 2010-11-28 全角スペースを灰色(Gray)で見えるようにする
 " http://blog.miraclelinux.com/ctd/2006/07/vim__32e1.html
 if has("syntax")
-  syntax on " highlight�ōD�݂̐F��ݒ�ł���悤�ɂ���
+  syntax on " highlightで好みの色を設定できるようにする
   function! ActivateInvisibleIndicator()
-    " �n�C���C�g���������p�^�[�����\�� (syntax) �Ƃ��Ē�`
-    " display �L�[���[�h�͉�ʂɕ\�������ꍇ�������������邽�߂̎w��
-    " containedin=ALL �L�[���[�h�͂ǂ�ȃR���e�L�X�g�ł���v�����邽�߂̎w��
-    syntax match InvisibleJISX0208Space "�@" display containedin=ALL
-    " �����[��(term)�ł̓A���_�[���C�����A�F�Ή��[��(ctermbg)��GUI(gvim)(guibg)�ł͊D�F(Gray)�ŕ\������
+    " ハイライトさせたいパターンを構文 (syntax) として定義
+    " display キーワードは画面に表示される場合だけ処理させるための指示
+    " containedin=ALL キーワードはどんなコンテキストでも一致させるための指示
+    syntax match InvisibleJISX0208Space "　" display containedin=ALL
+    " 白黒端末(term)ではアンダーラインを、色対応端末(ctermbg)とGUI(gvim)(guibg)では灰色(Gray)で表示する
     highlight InvisibleJISX0208Space term=underline ctermbg=Gray guibg=Gray
-    " vim �̓t�@�C����ʂ��ƂɃV���^�b�N�X�n�C���C�e�B���O�̒�`��؂�ւ���@�\��
-    " ����̂ł����A .vimrc �ɂ��V���^�b�N�X�n�C���C�e�B���O��`���������炪�D
-    " �悳��Ă��܂����߁A��L�̐ݒ肪�L���ɂȂ�Ȃ����Ƃ�����܂��B���̖��̉��
-    " �ɉ����A�V���^�b�N�X�n�C���C�e�B���O�@�\�̗L���̃`�F�b�N�� .vimrc �t�@�C����
-    " �ēǂݍ��݂ɑΉ�������悤�ɂȂ��Ă��܂��B
+    " vim はファイル種別ごとにシンタックスハイライティングの定義を切り替える機能が
+    " あるのですが、 .vimrc によるシンタックスハイライティング定義よりもそちらが優
+    " 先されてしまうため、上記の設定が有効にならないことがあります。この問題の回避
+    " に加え、シンタックスハイライティング機能の有無のチェックと .vimrc ファイルの
+    " 再読み込みに対応させるようになっています。
   endf
 
   augroup invisible
@@ -522,98 +522,98 @@ if has("syntax")
   augroup END
 endif
 
-" �s�ԍ���\�� (nonumber:��\��)
+" 行番号を表示 (nonumber:非表示)
 set number
 
-" �p�X�J���̃V���^�b�N�X��delphi�p�ɂ���B
-" ����ŁC"//"�̌オ�R�����g�Ƃ��ĐF�Â��t�����ꂽ�肷��B
+" パスカルのシンタックスをdelphi用にする。
+" これで，"//"の後がコメントとして色づけ付けされたりする。
 " C:\Vim\runtime\syntax\pascal.vim
-" �Q�Ɛ�F http://members.jcom.home.ne.jp/advweb/index_p1_s13.html
+" 参照先： http://members.jcom.home.ne.jp/advweb/index_p1_s13.html
 let pascal_delphi=1
 
 
-" 2010-11-28 �X�e�[�^�X���C���̐ݒ�(statusline)
+" 2010-11-28 ステータスラインの設定(statusline)
 " http://www.e2esound.com/20080816/entry-id=303
 " http://www.ksknet.net/vi/statusline.html
 set statusline=%F%m%r%h%w\%=ft=%Y,fmt=%{&ff},enc=%{&fileencoding},line=%l/%L,col=%c
-" �����G���R�[�f�B���O
-" �s��=���ݍs��/�S�s��
-" �����G���R�[�f�B���O=%{&fileencoding�A���ݍs��/���s��=%l/%L�ɂȂ�܂��B
-" %{'['.(&fenc!=''?&fenc:&enc).']['.&fileformat.']'} - fileencoding��fileformat��\��
-" �E�񂹂́u%=�v�ȉ��ɍ��ڂ�u�����Ƃłł��܂��B
+" 文字エンコーディング
+" 行数=現在行数/全行数
+" 文字エンコーディング=%{&fileencoding、現在行数/総行数=%l/%Lになります。
+" %{'['.(&fenc!=''?&fenc:&enc).']['.&fileformat.']'} - fileencodingとfileformatを表示
+" 右寄せは「%=」以下に項目を置くことでできます。
 "
-" %< - �s����������Ƃ��ɐ؂�l�߂�ʒu
-" %f - �t�@�C�����i���΃p�X�j
-" %F - �t�@�C�����i��΃p�X�j
-" %t - �t�@�C�����i�p�X����)
-" %m - �C���t���O �i[+]�܂���[-]�j
-" %r - �ǂݍ��ݐ�p�t���O�i[RO]�j
-" %h - �w���v�o�b�t�@
+" %< - 行が長すぎるときに切り詰める位置
+" %f - ファイル名（相対パス）
+" %F - ファイル名（絶対パス）
+" %t - ファイル名（パス無し)
+" %m - 修正フラグ （[+]または[-]）
+" %r - 読み込み専用フラグ（[RO]）
+" %h - ヘルプバッファ
 " %w - preview window flag
-" %= - ���񂹂ƉE�񂹍��ڂ̋�؂�i�����A�C�e�����E�񂹂ɂ���j
-" %l - ���݂̃J�[�\���̍s�ԍ�
-" %L - ���s��
-" %c - column�ԍ�
-" %V - �J�����ԍ�
-" %P - �J�[�\���̏ꏊ %�\��
+" %= - 左寄せと右寄せ項目の区切り（続くアイテムを右寄せにする）
+" %l - 現在のカーソルの行番号
+" %L - 総行数
+" %c - column番号
+" %V - カラム番号
+" %P - カーソルの場所 %表示
 
 
 
 " ##########################################################################
-" �o�b�N�A�b�v
+" バックアップ
 " http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html
 " ##########################################################################
-" 2014-01-13 ���[�U���Ƃɍ쐬�ł���悤��vimrc�t�@�C���Ɠ����ꏊ�Ɉړ�
+" 2014-01-13 ユーザごとに作成できるようにvimrcファイルと同じ場所に移動
 
-" �o�b�N�A�b�v�t�@�C�����쐬����ꏊ�̎w��
+" バックアップファイルを作成する場所の指定
 " set backupdir=c:/Vim/backup
 set backupdir=~/vimfiles/tmp/backup
 
-" 2015-07-06 Vim74�̃o�[�W�����A�b�v�ɔ���undofile ���쐬����ꏊ��ݒ�
+" 2015-07-06 Vim74のバージョンアップに伴いundofile を作成する場所を設定
 " http://www.kaoriya.net/blog/2014/03/30/
-" Vim �� 7.4.227 ����A�f�t�H���g�� undofile ���I���̏�ԂŔz�z�����悤�ɂ�
-" ��܂����B���̂��߃f�t�H���g�ł̓t�@�C����ۑ��������ɓ����� .{�t�@�C��
-" ��}.un~ �� undo �t�@�C�����쐬���܂��B
-" ���� undo �t�@�C���ɂ�� Vim �� undo �̏����Z�b�V�������z���ĕێ��ł��܂��B
+" Vim は 7.4.227 から、デフォルトで undofile がオンの状態で配布されるようにな
+" りました。そのためデフォルトではファイルを保存した時に同時に .{ファイル
+" 名}.un~ を undo ファイルを作成します。
+" この undo ファイルにより Vim は undo の情報をセッションを越えて保持できます。
 set undodir=~/vimfiles/tmp/undo
 
-" swap�t�@�C�����쐬����ꏊ�̎w��
+" swapファイルを作成する場所の指定
 set directory=~/vimfiles/tmp/swap " 2014-02-14
 
-" .viminfo�A_viminfo�t�@�C���́A�R�}���h�A�ҏW���A�������A���W�X�^�Ȃǂ� ��������ۑ����Ă���t�@�C���ł��B
-" ���̃t�@�C����vim�G�f�B�^�̏I�����ɍ쐬����A�����vim�G�f�B�^�N�����ɁA ��Ԃ𕜌����邽�߂Ɏg�p����܂��B
-" �����₷���悤�ɏo�͏ꏊ�ƃt�@�C������ύX
+" .viminfo、_viminfoファイルは、コマンド、編集情報、検索情報、レジスタなどの 履歴情報を保存しているファイルです。
+" このファイルはvimエディタの終了時に作成され、次回のvimエディタ起動時に、 状態を復元するために使用されます。
+" 扱いやすいように出力場所とファイル名を変更
 set viminfo+=n~/vimfiles/tmp/viminfo.txt
 
 " ##########################################################################
-" tabstop �� softtabstop
+" tabstop と softtabstop
 " ##########################################################################
 
-" - tabstop: �{���� TAB ����ʏ�łǂꂾ���̕����߂邩�B
-" - softtabstop: TAB �L�[���������Ƃ��ɁA�������� tabstop�����̒l�ɐݒ肳�ꂽ
-"   �悤�ɐU�镑�����A�{���� TAB �̕��� tabstop �̒l�ɕۂ��߂̃I�v�V�����B
+" - tabstop: 本当の TAB が画面上でどれだけの幅を占めるか。
+" - softtabstop: TAB キーを押したときに、あたかも tabstopがこの値に設定された
+"   ように振る舞うが、本当の TAB の幅は tabstop の値に保つためのオプション。
 
-" �Ⴆ�΁ATAB �L�[���������Ƃ��ɉ�ʏ��4��̕��C���f���g�������ꍇ�́Atabstop
-" �̒l��4�ɐݒ肷�邱�ƂŎ��ۂ� TAB �̕���4��ɂ���̂��ȒP�ł��B�������Ȃ���A
-" �����t�@�C���𕡐��̐l�ŕҏW����ꍇ�ȂǂɁA����l�� TAB �̕���8�Ɖ��肵�A��
-" ��l��4�Ɖ��肵�Ă����肷��ƍ����������܂��B
+" 例えば、TAB キーを押したときに画面上で4列の幅インデントしたい場合は、tabstop
+" の値を4に設定することで実際の TAB の幅を4列にするのが簡単です。しかしながら、
+" 同じファイルを複数の人で編集する場合などに、ある人は TAB の幅を8と仮定し、あ
+" る人は4と仮定していたりすると混乱が生じます。
 
-" �����̐l���A���ۂ� TAB �̕��� 8 �Ɖ��肵�Ă���̂� tabstop�� 8 �ɂ��Ă�����
-" �����悢�ł��B�����āAsofttabstop �̒l��ύX���܂��B�Ⴆ��:
-"       set nosmarttab  <- ��Ő������܂��B
+" 多くの人が、実際の TAB の幅は 8 と仮定しているので tabstopは 8 にしておいた
+" 方がよいです。そして、softtabstop の値を変更します。例えば:
+"       set nosmarttab  <- 後で説明します。
 "       set tabstop=8
 "       set softtabstop=4
-" �Ƃ��Ă���ƁA�Ⴆ�΍s���� TAB �L�[��������4�̃X�y�[�X���}������A�������
-" TAB �L�[�������ƍ��v8�̃X�y�[�X�̑���� TAB ����}������܂��B
-"     �J�[�\��
-" ------->�J�[�\��
+" としていると、例えば行頭で TAB キーを押すと4つのスペースが挿入され、もう一回
+" TAB キーをおすと合計8つのスペースの代わりに TAB が一つ挿入されます。
+"     カーソル
+" ------->カーソル
 
-" �����āA�o�b�N�X�y�[�X�E�L�[�� softtabstop �̕������A�X�y�[�X���폜���܂��B
-" ------->�J�[�\��
-"     �J�[�\��
+" そして、バックスペース・キーは softtabstop の幅だけ、スペースを削除します。
+" ------->カーソル
+"     カーソル
 
-" �܂�A���o�I�ɂ͖{���� TAB ��}��������폜���Ă���悤�Ȃ̂ł����A���ۂ�
-" TAB �� tabstop �̒l�ɕۂ���܂��B
+" つまり、感覚的には本当の TAB を挿入したり削除しているようなのですが、実際の
+" TAB は tabstop の値に保たれます。
 
 "set tabstop=2 2005-11-05
 "set tabstop=4 2008-05-09
@@ -622,40 +622,40 @@ set viminfo+=n~/vimfiles/tmp/viminfo.txt
 set tabstop=2
 set softtabstop=2
 
-" 2. shiftwidth: �C���f���g�E�R�}���h�ő}�������X�y�[�X�̐��B
-" �C���f���g�E�R�}���h�Ƃ� >> �̂悤�ȃR�}���h�Q�ł��B
+" 2. shiftwidth: インデント・コマンドで挿入されるスペースの数。
+" インデント・コマンドとは >> のようなコマンド群です。
 "       <{motion}           >{motion}
 "       <<                  >>
 "       {Visual}[count]<    {Visual}[count]>
 "       :[range]<           :[range]>
 "       :[range]< {count}   :[range]> {count}
-" �܂��A����ȊO�� cindent �ɂ�����C���f���g�ł� shiftwidth�̒l���g���܂��B
+" また、これ以外に cindent におけるインデントでも shiftwidthの値が使われます。
 " set shiftwidth=2 2005-11-05
 set shiftwidth=2
 
-" 3. smarttab: TAB �̓������������
-" smarttab �I�v�V�������Z�b�g����Ă���ƁA
-" �E�s���� TAB �L�[���������ꍇ�ɂ́Ashiftwidth �̕��̃X�y�[�X�� TAB ���}������܂��B
-" �E����ȊO�̏ꏊ�ł͖{���� TAB ���}������܂��Asofttabstop ���ݒ肳��Ă���Ƃ��̒l�ł��B
+" 3. smarttab: TAB の動作を賢くする
+" smarttab オプションがセットされていると、
+" ・行頭で TAB キーを押した場合には、shiftwidth の幅のスペースと TAB が挿入されます。
+" ・それ以外の場所では本当の TAB が挿入されます、softtabstop が設定されているとその値です。
 "set nosmarttab 2015-01-04
 set smarttab
 
-" 4. expandtab: �{���� TAB �͑}�������Atabstop �̒l�̐��̃X�y�[�X��}������B
-" softtabstop ���ݒ肳��Ă���Ƃ��̐������Bsofttabstop ���ݒ肳��Ă��Ȃ��ƁA
-" �o�b�N�X�y�[�X�E�L�[�ł́A�X�y�[�X��1���폜����邱�ƂɂȂ�܂��B
+" 4. expandtab: 本当の TAB は挿入せず、tabstop の値の数のスペースを挿入する。
+" softtabstop が設定されているとその数だけ。softtabstop が設定されていないと、
+" バックスペース・キーでは、スペースが1つずつ削除されることになります。
 " set noexpandtab
 set expandtab "2009-01-06
 
-" expandtab�̎��ɁA�^�u������}���������ꍇ�́A
+" expandtabの時に、タブ文字を挿入したい場合は、
 " http://nanasi.jp/articles/howto/editing/et-inserttab.html
 
-" �C���f���g�̐ݒ���t�@�C���^�C�v�ʂɍs�� (2015-01-04)
+" インデントの設定をファイルタイプ別に行う (2015-01-04)
 " http://d.hatena.ne.jp/foussin/20121125/1353790707
-"   (shiftwidth=�X�}�[�g�C���f���g�̕�)
-"   (tabstop=�^�u�̉�ʏ�ł̕�)
-"   (softtabstop=??? �f�t�H���g�� tabstop �Ɠ����炵��)
+"   (shiftwidth=スマートインデントの幅)
+"   (tabstop=タブの画面上での幅)
+"   (softtabstop=??? デフォルトは tabstop と同じらしい)
 augroup vimrc
-" Vim�Ō��݂̃o�b�t�@�i�J���Ă���t�@�C���j��filetype���擾����ɂ́A
+" Vimで現在のバッファ（開いているファイル）のfiletypeを取得するには、
 " :echo &filetype
   autocmd! FileType cs         setlocal shiftwidth=4 tabstop=4 softtabstop=4
   autocmd! FileType c          setlocal shiftwidth=4 tabstop=4 softtabstop=4
@@ -665,16 +665,16 @@ augroup END
 
 
 " ##########################################################################
-" FileType�̐ݒ�
+" FileTypeの設定
 " ##########################################################################
-" FlexDCA�̃}�X�N�t�@�C��(*.mskx) 2017-03-16
+" FlexDCAのマスクファイル(*.mskx) 2017-03-16
 autocmd BufRead,BufNewFile *.mskx set filetype=xml
 
 " ##########################################################################
-" �������s
+" 自動改行
 " ##########################################################################
-" �f�t�H���g��78�����ڂŉ��s����Ă��܂��̂��������s���Ȃ��悤�ɂ���
-" vimrc_example��textwidth�ݒ���㏑��
+" デフォルトで78文字目で改行されてしまうのを自動改行しないようにする
+" vimrc_exampleのtextwidth設定を上書き
 " http://d.hatena.ne.jp/WK6/20120606/1338993826
 autocmd FileType text setlocal textwidth=0
 
@@ -683,137 +683,137 @@ autocmd FileType text setlocal textwidth=0
 " ##########################################################################
 
 " 2010-01-08
-" Vim7 ������ grep ���g���ɂ� :vimgrep �R�}���h���g���΂悢�B
+" Vim7 内蔵の grep を使うには :vimgrep コマンドを使えばよい。
 " :vimgrep /hogehoge/ *.txt
-" �ŏ��Ƀ}�b�`�����t�@�C�����J���Ȃ��悤�ɂ���ɂ� j �t���O���g���B
+" 最初にマッチしたファイルを開かないようにするには j フラグを使う。
 " :vimgrep /hogehoge/j *.txt
-" �ċA�I�Ɍ�������ɂ� **(starstar) ���g���B
+" 再帰的に検索するには **(starstar) を使う。
 " :vimgrep /hogehoge/j **/*.txt
-" �ЂƂ�̊K�w����ċA�I�Ɍ�������Ƃ���../��ǉ�
+" ひとつ上の階層から再帰的に検索するときは../を追加
 " :vimgrep /hogehoge/j ../**/*.lua
-" �������ʂ� Quickfix���X�g�ɕ\�������B:copen �ŊJ�� :ccl �ŕ��邱�Ƃ��ł���B�ڍׂ� :he quickfix-window�B
+" 検索結果は Quickfixリストに表示される。:copen で開き :ccl で閉じることができる。詳細は :he quickfix-window。
 
-" 2009-11-09  vim��grep�Ƃ�����Ƃ��ɁA�Ώۂ�����Ƃ��̂ݎ�����quickfix���J��
+" 2009-11-09  vimでgrepとかするときに、対象があるときのみ自動でquickfixを開く
 "   http://webtech-walker.com/archive/2009/09/29213156.html
-"   vim��grep�Ƃ�����Ƃ��ɁA���ʂ�quickfix�ɔ��f�����킯�ł����A����͎����ŊJ
-"   ���Ă���Ȃ��̂�grep��������:cw�Ƃ����ĊJ���Ȃ��Ƃ����Ȃ��̂����Ɩʓ|�ł��B
-"   ���L�̂悤��cw��grep�ƈꏏ�Ɏw�肵�Ă�������ł����ǁA| cw�𖈉�^�C�v����̂�
-"   �ʓ|�ł��B
+"   vimでgrepとかするときに、結果はquickfixに反映されるわけですが、これは自動で開
+"   いてくれないのでgrepしたあと:cwとかして開かないといけないのがちと面倒です。
+"   下記のようにcwもgrepと一緒に指定してもいいんですけど、| cwを毎回タイプするのも
+"   面倒です。
 "   :vimgrep /hoge/j * | cw
 autocmd QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
 
-" 2009-11-09 vimgrep ���f�t�H���g�� grep �v���O�����Ƃ��Ďg�p����
-" �� ���܂������Ȃ������I�u������quickfix���J���v�������Ȃ��B
+" 2009-11-09 vimgrep をデフォルトの grep プログラムとして使用する
+" → うまく動かなかった！「自動でquickfixを開く」が動かない。
 " http://blog.kaihatsubu.com/archives/001346.html
 " http://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-grep
-" :grep �� :vimgrep �̃G�C���A�X�ɂ���ɂ́Agvimrc �Ɉȉ��̍s��ǉ�����B 
+" :grep を :vimgrep のエイリアスにするには、gvimrc に以下の行を追加する。 
 " set grepprg=internal
 
-" 2017-02-04 jvgrep ���f�t�H���g�� grep �v���O�����Ƃ��Ďg�p����
-" http://myenigma.hatenablog.com/entry/2016/01/17/184925#�����K��grep���邽�߂�vimrc�ݒ�
+" 2017-02-04 jvgrep をデフォルトの grep プログラムとして使用する
+" http://myenigma.hatenablog.com/entry/2016/01/17/184925#より快適にgrepするためのvimrc設定
 if executable('jvgrep')
   set grepprg=jvgrep
 endif
 
 
 " ##########################################################################
-" �N���b�v�{�[�h�ւ̃R�s�[�y�[�X�g
+" クリップボードへのコピーペースト
 " ##########################################################################
 " 2011-12-17
-" �폜���e���N���b�v�{�[�h�ɓ����Ă��܂��A�N���b�v�{�[�h�̓��e���u���ς���Ă��܂��̂Ŏ~�߂��B
+" 削除内容もクリップボードに入ってしまい、クリップボードの内容が置き変わってしまうので止めた。
 " 2011-11-01
-" �ȉ��̐ݒ�ŁA�ʏ�A�u�������W�X�^�v�ɓ���A �����N�A�J�b�g�̑���Ŏw�肵��
-" �e�L�X�g���A�u*���W�X�^�v�ɂ�����悤�ɂȂ�܂��B�u*���W�X�^�v�Ƀf�[�^�����
-" ��ƁA�N���b�v�{�[�h�Ƀf�[�^������̂ŁAvim�G�f�B�^�Ń����N�A�J�b�g�����e�L
-" �X�g���A���̃A�v���P�[�V�����ő��y�[�X�g���Ďg�p�ł��邱�ƂɂȂ�܂��B
+" 以下の設定で、通常、「無名レジスタ」に入る、 ヤンク、カットの操作で指定した
+" テキストが、「*レジスタ」にも入るようになります。「*レジスタ」にデータを入れ
+" ると、クリップボードにデータが入るので、vimエディタでヤンク、カットしたテキ
+" ストを、他のアプリケーションで即ペーストして使用できることになります。
 " http://nanasi.jp/articles/howto/editing/clipboard.html
 "set clipboard+=unnamed
 
 " ##########################################################################
-" <C-k>y�ŉp�a����(GENE95 ����)��������悤�ɂ��� (2013-02-03)
+" <C-k>yで英和辞書(GENE95 辞書)を引けるようにする (2013-02-03)
 " ##########################################################################
-" �Z�b�g�A�b�v�菇:
+" セットアップ手順:
 "   http://nanasi.jp/articles/vim/dicwin_vim.html
-"   �ȉ�URK����_�E�����[�h�E�𓀂���GENE95 �����t�@�C��(gene.txt)��vimfiles�t�H���_�Ɉړ�
+"   以下URKからダウンロード・解凍したGENE95 辞書ファイル(gene.txt)をvimfilesフォルダに移動
 "   http://www.namazu.org/~tsuchiya/sdic/data/gene.html
-"   vimfiles�t�H���_�ɂ��Ă͈ȉ��Q��
+"   vimfilesフォルダについては以下参照
 "   http://nanasi.jp/articles/howto/config/runtimepath.html
 
 " ##########################################################################
-" <C-k>y�ŉp���Y��������悤�ɂ��� (2013-02-03)
+" <C-k>yで英辞郎を引けるようにする (2013-02-03)
 " ##########################################################################
-" �g����:
-"   �p�P��̏�ɃJ�[�\�������킹 <C-k>y �ŒP�ꂪ������
-"   q�Ŏ��������
-"   Space/BS�Ŏ��`�̃y�[�W����/�߂�
-"   K/J�Ō��̏㉺
-"   <C-p> <C-n>�ŗ����̏㉺
-" �Z�b�g�A�b�v�菇:
-"   �ȉ����Q�l��EPWING�t�@�C���ϊ���Ubuntu PC�ō쐬
+" 使い方:
+"   英単語の上にカーソルを合わせ <C-k>y で単語が引ける
+"   qで辞書を閉じる
+"   Space/BSで字義のページ送り/戻り
+"   K/Jで候補の上下
+"   <C-p> <C-n>で履歴の上下
+" セットアップ手順:
+"   以下を参考にEPWINGファイル変換をUbuntu PCで作成
 "     http://blog.craftgear.net/50165b2c048026831d000002/title
 "     https://github.com/fumiyas/eijiro-fpw
 "     http://www.crystal-creation.com/software/tool/study/ebwin/catalogs.htm
-"   - freepwing��Jcode.pm��Ubuntu�\�t�g�E�F�A�Z���^�[�ŃC���X�g�[��
-"   - �ȉ��R�}���h��github����ϊ��X�N���v�g��clone
+"   - freepwingとJcode.pmをUbuntuソフトウェアセンターでインストール
+"   - 以下コマンドでgithubから変換スクリプトをclone
 "       git clone https://github.com/fumiyas/eijiro-fpw
-"   - Makefile��ҏW����EIJIRO�̃o�[�W�����������̎����Ă�p���Y�̃o�[�W�����ɕύX
+"   - Makefileを編集してEIJIROのバージョンを自分の持ってる英辞郎のバージョンに変更
 "       EIJIROVER = 134
-"   - �p���Y�̃f�[�^�t�@�C��(EIJI-134.TXT)��Makefile��SRCDIR�Ŏw�肵��(�X�N���v�g�Ɠ���)�ꏊ�ɒu��
-"   - �ȉ��R�}���h�Ŏ����t�@�C���𐶐��ihonmon�Ƃ����t�@�C�� ��650MB�j
+"   - 英辞郎のデータファイル(EIJI-134.TXT)をMakefileのSRCDIRで指定した(スクリプトと同じ)場所に置く
+"   - 以下コマンドで辞書ファイルを生成（honmonというファイル 約650MB）
 "       make -I /usr/share/freepwing
-"   - �ȉ��R�}���h�ŃJ�^���O�t�@�C��(catalogs)���쐬
+"   - 以下コマンドでカタログファイル(catalogs)を作成
 "       /usr/share/freepwing/catdump -u catalogs.txt catalogs
-"   - �o���オ����2�̃t�@�C�����ȉ��̂悤�ɔz�u
+"   - 出来上がった2つのファイルを以下のように配置
 "       C:/Vim/eijiro/
 "                   |-- catalog
 "                   |-- eijiro/
 "                            |-- data/
 "                                   | -- honmon
-"   eblook�v���O�����̃Z�b�g�A�b�v
-"     �ȉ�URL����eblook�v���O�������_�E�����[�h(eblook-1.6.1+media-20110801-ebu-4.4.3-20110801.exe)
+"   eblookプログラムのセットアップ
+"     以下URLからeblookプログラムをダウンロード(eblook-1.6.1+media-20110801-ebu-4.4.3-20110801.exe)
 "     http://ikazuhiro.s206.xrea.com/staticpages/index.php/eblook
-"     eblook.exe�Ƀ��l�[������c:\vim�Ɉړ�
-"     �R�}���h���C���ňȉ��̂悤�Ɏg���邱�Ƃ��m�F
+"     eblook.exeにリネームしてc:\vimに移動
+"     コマンドラインで以下のように使えることを確認
 "       C:\Documents and Settings\a1195046>eblook c:/vim/eijiro
 "       eblook> list
-"        1. eijiro      �p���Y
+"        1. eijiro      英辞郎
 "       eblook> select 1
 "       eblook> search apple
 "        1. 5115:1324   apple
 "        2. 5115:1858   Apple
-"     �g�����̎Q�l: http://openlab.jp/edict/eblook/eblook.html#SEC2
+"     使い方の参考: http://openlab.jp/edict/eblook/eblook.html#SEC2
 "
-"   eblook.vim�̃Z�b�g�A�b�v
-"     �ȉ��̂悤�Ɏ����t�@�C����eblook.vim�ɓo�^
-"let eblook_dictlist1 = [{'book': 'c:/Vim/eijiro/','name': 'eijiro','title': '�p���Y',}]
-let eblook_dictlist1 = [{'book': 'c:/eblook/eijiro/','name': 'eijiro','title': '�p���Y',}]
-"     �� �ȉ��͍ŏ����܂������Ȃ������Ƃ��ɁA�_�E�����[�h����EPWING�t�@�C�����g���Ď������ݒ�
-"        �f�[�^�� http://openlab.ring.gr.jp/edict/fpw/#ascii ����_�E�����[�h
-"let eblook_dictlist1 = [{'book': 'c:/Vim/ASCDATES/','name': 'ascdates','title': '�A�X�L�[�蒠',}]
+"   eblook.vimのセットアップ
+"     以下のように辞書ファイルをeblook.vimに登録
+"let eblook_dictlist1 = [{'book': 'c:/Vim/eijiro/','name': 'eijiro','title': '英辞郎',}]
+let eblook_dictlist1 = [{'book': 'c:/eblook/eijiro/','name': 'eijiro','title': '英辞郎',}]
+"     ※ 以下は最初うまく動かなかったときに、ダウンロードしたEPWINGファイルを使って試した設定
+"        データは http://openlab.ring.gr.jp/edict/fpw/#ascii からダウンロード
+"let eblook_dictlist1 = [{'book': 'c:/Vim/ASCDATES/','name': 'ascdates','title': 'アスキー手帳',}]
 
 
 "===============================================================================
-" �J�����g�f�B���N�g���������I�ɕύX���� (2015-11-21)
+" カレントディレクトリを自動的に変更する (2015-11-21)
 "===============================================================================
-"���ꂪ�I���ł���ƃt�@�C�����J���Ƃ��A�o�b�t�@��؂�ւ���Ƃ��A�o�b�t�@����
-"������Ƃ��A�E�B���h�E���J����Ƃ��ɖ����ƃf�B���N�g�����ύX�����B�J��
-"�ꂽ�^�I�����ꂽ�t�@�C�����܂�ł���f�B���N�g�����J�����g�f�B���N�g���ɂȂ�B
+"これがオンであるとファイルを開くとき、バッファを切り替えるとき、バッファを削
+"除するとき、ウィンドウを開閉するときに毎回作業ディレクトリが変更される。開か
+"れた／選択されたファイルを含んでいるディレクトリがカレントディレクトリになる。
 set autochdir
 
 
 "===============================================================================
-" Visual Studio��VsVim�g���@�\�Ƃ̘A�g�̂��߂ɁAC:\Vim �� vimrc �ɂ�����e���ړ� (2021-01-03)
+" Visual StudioのVsVim拡張機能との連携のために、C:\Vim の vimrc にある内容を移動 (2021-01-03)
 "===============================================================================
-" Visual Studio�ɃC���X�g�[������VsVim�Łu:set�v�����s���ď�Ԃ��m�F�����
-" C:\Users\hkawa\vimfiles �ɂ��� vimrc �̐ݒ肪�ǂݍ��܂�Ă��邪�A
-" C:\Vim �� vimrc �͓ǂݍ��܂�Ȃ��B
-" ���̂��߁A���ʂŎg�p�������ݒ�� vimfiles �� vimrc �ɏW�񂵂Ă���
+" Visual StudioにインストールしたVsVimで「:set」を実行して状態を確認すると
+" C:\Users\hkawa\vimfiles にある vimrc の設定が読み込まれているが、
+" C:\Vim の vimrc は読み込まれない。
+" このため、共通で使用したい設定は vimfiles の vimrc に集約していく
 "---------------------------------------------------------------------------
-" �����̋����Ɋւ���ݒ�:
+" 検索の挙動に関する設定:
 "
-" �������ɑ啶���������𖳎� (noignorecase:�������Ȃ�)
+" 検索時に大文字小文字を無視 (noignorecase:無視しない)
 set ignorecase
-" �啶���������̗������܂܂�Ă���ꍇ�͑啶�������������
+" 大文字小文字の両方が含まれている場合は大文字小文字を区別
 set smartcase
 
 
