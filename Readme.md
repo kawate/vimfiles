@@ -126,11 +126,6 @@ C:\Vim\switches\catalog にある utf-8.vim C:\Vim\switches\enabled にコピー
 _vimrc  → vimrc  
 _gvimrc → gvimrc  
 
-## 英辞郎の英単語を<c-k>yで引けるようにする
-辞書引きツール eblook.exe と、変換済みの辞書データ eijiro フォルダを C:\eblook に作成し、
-eblook.exe がコマンドとして起動できるように PATH変数に C:\eblook を追加する。
-その他詳細はvimrcのeblookのところを参照。
-
 ## カスタマイズして使っているpluginやsyntaxファイル
 vimfilesの以下のフォルダに格納して使う
 
@@ -148,5 +143,4 @@ set runtimepath+=C:\Vim\_runtime
 
 ## 未実施
 - 環境変数の設定
-- vimからRubyスクリプトを実行
-- Rubyのリファレンスを表示
+

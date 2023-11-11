@@ -1,15 +1,15 @@
-"===============================================================================
-" Python3 DLL の場所を指定
-"===============================================================================
-" Vimをコンパイルしたときに指定されているバージョンと異なる場合、
-" 実際にインストールされているPython3 DLLの場所の指定が必要
-" https://arimasou16.com/blog/2018/10/19/00266/
-
-" 2023-02-23 会社PCのインストール場所は以下
-"set pythonthreedll=C:\Users\a1195046\AppData\Local\Programs\Python\Python310-32\python310.dll
-
-" 2023-02-23 家のPCのインストール場所は以下
-set pythonthreedll=C:\Users\hkawa\AppData\Local\Programs\Python\Python39-32\python39.dll
+""===============================================================================
+"" Python3 DLL の場所を指定
+""===============================================================================
+"" Vimをコンパイルしたときに指定されているバージョンと異なる場合、
+"" 実際にインストールされているPython3 DLLの場所の指定が必要
+"" https://arimasou16.com/blog/2018/10/19/00266/
+"
+"" 2023-02-23 会社PCのインストール場所は以下
+""set pythonthreedll=C:\Users\a1195046\AppData\Local\Programs\Python\Python310-32\python310.dll
+"
+"" 2023-02-23 家のPCのインストール場所は以下
+"set pythonthreedll=C:\Users\hkawa\AppData\Local\Programs\Python\Python39-32\python39.dll
 
 
 "===============================================================================
@@ -63,25 +63,25 @@ NeoBundle 'thinca/vim-visualstar'
 " 以降の「singleton#enable」で有効にしている
 NeoBundle 'thinca/vim-singleton'
 
-" -----
-NeoBundle 'Shougo/unite.vim'
-
-" -----
-" unite-outline: ソースファイルを解析し、アウトラインを表示する (2015-03-08)
-" :Unite outlineで起動する
-" ※ unite-outlineと同様のことが別にインストールしたVoomでも可能
-"NeoBundle 'h1mesuke/unite-outline'
-"↑最初これ指定してたらエラーになったので↓に変更して:NeoBundleCleanと:NeoBundleUpdateしたら動くようになった
-NeoBundle 'https://github.com/Shougo/unite-outline'
-" ※ C++のコードを見るときは exuberant ctags が必要なので以下にインストール(2015-03-08)
-"    C:\data\shortcuts\ctags.exe
-
-" 「:,u」と入力したときにunite-outlineの以下のコマンドを実行する
-"  :Unite -no-quit -vertical outline
-"    -no-quit: アウトラインのバッファを閉じないようにする
-"    -vertical: 垂直分割で開く
-"http://hinagishi.hateblo.jp/entry/2011/11/18/135701
-noremap ,u <ESC>:Unite -no-quit -vertical outline<Return>
+"" -----
+"NeoBundle 'Shougo/unite.vim'
+"
+"" -----
+"" unite-outline: ソースファイルを解析し、アウトラインを表示する (2015-03-08)
+"" :Unite outlineで起動する
+"" ※ unite-outlineと同様のことが別にインストールしたVoomでも可能
+""NeoBundle 'h1mesuke/unite-outline'
+""↑最初これ指定してたらエラーになったので↓に変更して:NeoBundleCleanと:NeoBundleUpdateしたら動くようになった
+"NeoBundle 'https://github.com/Shougo/unite-outline'
+"" ※ C++のコードを見るときは exuberant ctags が必要なので以下にインストール(2015-03-08)
+""    C:\data\shortcuts\ctags.exe
+"
+"" 「:,u」と入力したときにunite-outlineの以下のコマンドを実行する
+""  :Unite -no-quit -vertical outline
+""    -no-quit: アウトラインのバッファを閉じないようにする
+""    -vertical: 垂直分割で開く
+""http://hinagishi.hateblo.jp/entry/2011/11/18/135701
+"noremap ,u <ESC>:Unite -no-quit -vertical outline<Return>
 
 " -----
 " autocomplpop.vim: キーワード補完リストを自動で出す
@@ -92,14 +92,14 @@ NeoBundle 'https://github.com/vim-scripts/AutoComplPop'
 "    vim-autocomplpop.zip
 "    展開したファイル群を _runtime フォルダに移動
 
-" -----
-"eblook.vim: eblookプログラムを使って辞書を引く
-NeoBundle 'https://github.com/deton/eblook.vim'
-"  昔のやり方:
-"     以下URLからダウンロード（eblook-vim-1.2.0.tar.bz2.tar.bz2）
-"     http://www1.interq.or.jp/~deton/eblook-vim/
-"     解凍したファイルをREADME.markdownを参考に移動
-"     ただし、Vimのバージョンアップで面倒にならないように runtime ではなく _runtime フォルダに移動
+"" -----
+""eblook.vim: eblookプログラムを使って辞書を引く
+"NeoBundle 'https://github.com/deton/eblook.vim'
+""  昔のやり方:
+""     以下URLからダウンロード（eblook-vim-1.2.0.tar.bz2.tar.bz2）
+""     http://www1.interq.or.jp/~deton/eblook-vim/
+""     解凍したファイルをREADME.markdownを参考に移動
+""     ただし、Vimのバージョンアップで面倒にならないように runtime ではなく _runtime フォルダに移動
 
 " -----
 "Alin.vim: コードの整形ツール
@@ -165,11 +165,11 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#333344 ctermbg=darkgr
 let g:indent_guides_guide_size = 1
 
 
-" -----
-"jedi.vim - Pythonをvimで書くときにコード補完を行ってくれる (2015-01-04)
-"http://qiita.com/tekkoc/items/923d7a7cf124e63adab5
-"http://togattti.hateblo.jp/entry/2013/10/16/214911
-NeoBundle 'davidhalter/jedi-vim'
+"" -----
+""jedi.vim - Pythonをvimで書くときにコード補完を行ってくれる (2015-01-04)
+""http://qiita.com/tekkoc/items/923d7a7cf124e63adab5
+""http://togattti.hateblo.jp/entry/2013/10/16/214911
+"NeoBundle 'davidhalter/jedi-vim'
 
 " -----
 "Molokai color scheme for Vim
@@ -723,67 +723,67 @@ endif
 " http://nanasi.jp/articles/howto/editing/clipboard.html
 "set clipboard+=unnamed
 
-" ##########################################################################
-" <C-k>yで英和辞書(GENE95 辞書)を引けるようにする (2013-02-03)
-" ##########################################################################
-" セットアップ手順:
-"   http://nanasi.jp/articles/vim/dicwin_vim.html
-"   以下URKからダウンロード・解凍したGENE95 辞書ファイル(gene.txt)をvimfilesフォルダに移動
-"   http://www.namazu.org/~tsuchiya/sdic/data/gene.html
-"   vimfilesフォルダについては以下参照
-"   http://nanasi.jp/articles/howto/config/runtimepath.html
-
-" ##########################################################################
-" <C-k>yで英辞郎を引けるようにする (2013-02-03)
-" ##########################################################################
-" 使い方:
-"   英単語の上にカーソルを合わせ <C-k>y で単語が引ける
-"   qで辞書を閉じる
-"   Space/BSで字義のページ送り/戻り
-"   K/Jで候補の上下
-"   <C-p> <C-n>で履歴の上下
-" セットアップ手順:
-"   以下を参考にEPWINGファイル変換をUbuntu PCで作成
-"     http://blog.craftgear.net/50165b2c048026831d000002/title
-"     https://github.com/fumiyas/eijiro-fpw
-"     http://www.crystal-creation.com/software/tool/study/ebwin/catalogs.htm
-"   - freepwingとJcode.pmをUbuntuソフトウェアセンターでインストール
-"   - 以下コマンドでgithubから変換スクリプトをclone
-"       git clone https://github.com/fumiyas/eijiro-fpw
-"   - Makefileを編集してEIJIROのバージョンを自分の持ってる英辞郎のバージョンに変更
-"       EIJIROVER = 134
-"   - 英辞郎のデータファイル(EIJI-134.TXT)をMakefileのSRCDIRで指定した(スクリプトと同じ)場所に置く
-"   - 以下コマンドで辞書ファイルを生成（honmonというファイル 約650MB）
-"       make -I /usr/share/freepwing
-"   - 以下コマンドでカタログファイル(catalogs)を作成
-"       /usr/share/freepwing/catdump -u catalogs.txt catalogs
-"   - 出来上がった2つのファイルを以下のように配置
-"       C:/Vim/eijiro/
-"                   |-- catalog
-"                   |-- eijiro/
-"                            |-- data/
-"                                   | -- honmon
-"   eblookプログラムのセットアップ
-"     以下URLからeblookプログラムをダウンロード(eblook-1.6.1+media-20110801-ebu-4.4.3-20110801.exe)
-"     http://ikazuhiro.s206.xrea.com/staticpages/index.php/eblook
-"     eblook.exeにリネームしてc:\vimに移動
-"     コマンドラインで以下のように使えることを確認
-"       C:\Documents and Settings\a1195046>eblook c:/vim/eijiro
-"       eblook> list
-"        1. eijiro      英辞郎
-"       eblook> select 1
-"       eblook> search apple
-"        1. 5115:1324   apple
-"        2. 5115:1858   Apple
-"     使い方の参考: http://openlab.jp/edict/eblook/eblook.html#SEC2
+"" ##########################################################################
+"" <C-k>yで英和辞書(GENE95 辞書)を引けるようにする (2013-02-03)
+"" ##########################################################################
+"" セットアップ手順:
+""   http://nanasi.jp/articles/vim/dicwin_vim.html
+""   以下URKからダウンロード・解凍したGENE95 辞書ファイル(gene.txt)をvimfilesフォルダに移動
+""   http://www.namazu.org/~tsuchiya/sdic/data/gene.html
+""   vimfilesフォルダについては以下参照
+""   http://nanasi.jp/articles/howto/config/runtimepath.html
 "
-"   eblook.vimのセットアップ
-"     以下のように辞書ファイルをeblook.vimに登録
-"let eblook_dictlist1 = [{'book': 'c:/Vim/eijiro/','name': 'eijiro','title': '英辞郎',}]
-let eblook_dictlist1 = [{'book': 'c:/eblook/eijiro/','name': 'eijiro','title': '英辞郎',}]
-"     ※ 以下は最初うまく動かなかったときに、ダウンロードしたEPWINGファイルを使って試した設定
-"        データは http://openlab.ring.gr.jp/edict/fpw/#ascii からダウンロード
-"let eblook_dictlist1 = [{'book': 'c:/Vim/ASCDATES/','name': 'ascdates','title': 'アスキー手帳',}]
+"" ##########################################################################
+"" <C-k>yで英辞郎を引けるようにする (2013-02-03)
+"" ##########################################################################
+"" 使い方:
+""   英単語の上にカーソルを合わせ <C-k>y で単語が引ける
+""   qで辞書を閉じる
+""   Space/BSで字義のページ送り/戻り
+""   K/Jで候補の上下
+""   <C-p> <C-n>で履歴の上下
+"" セットアップ手順:
+""   以下を参考にEPWINGファイル変換をUbuntu PCで作成
+""     http://blog.craftgear.net/50165b2c048026831d000002/title
+""     https://github.com/fumiyas/eijiro-fpw
+""     http://www.crystal-creation.com/software/tool/study/ebwin/catalogs.htm
+""   - freepwingとJcode.pmをUbuntuソフトウェアセンターでインストール
+""   - 以下コマンドでgithubから変換スクリプトをclone
+""       git clone https://github.com/fumiyas/eijiro-fpw
+""   - Makefileを編集してEIJIROのバージョンを自分の持ってる英辞郎のバージョンに変更
+""       EIJIROVER = 134
+""   - 英辞郎のデータファイル(EIJI-134.TXT)をMakefileのSRCDIRで指定した(スクリプトと同じ)場所に置く
+""   - 以下コマンドで辞書ファイルを生成（honmonというファイル 約650MB）
+""       make -I /usr/share/freepwing
+""   - 以下コマンドでカタログファイル(catalogs)を作成
+""       /usr/share/freepwing/catdump -u catalogs.txt catalogs
+""   - 出来上がった2つのファイルを以下のように配置
+""       C:/Vim/eijiro/
+""                   |-- catalog
+""                   |-- eijiro/
+""                            |-- data/
+""                                   | -- honmon
+""   eblookプログラムのセットアップ
+""     以下URLからeblookプログラムをダウンロード(eblook-1.6.1+media-20110801-ebu-4.4.3-20110801.exe)
+""     http://ikazuhiro.s206.xrea.com/staticpages/index.php/eblook
+""     eblook.exeにリネームしてc:\vimに移動
+""     コマンドラインで以下のように使えることを確認
+""       C:\Documents and Settings\a1195046>eblook c:/vim/eijiro
+""       eblook> list
+""        1. eijiro      英辞郎
+""       eblook> select 1
+""       eblook> search apple
+""        1. 5115:1324   apple
+""        2. 5115:1858   Apple
+""     使い方の参考: http://openlab.jp/edict/eblook/eblook.html#SEC2
+""
+""   eblook.vimのセットアップ
+""     以下のように辞書ファイルをeblook.vimに登録
+""let eblook_dictlist1 = [{'book': 'c:/Vim/eijiro/','name': 'eijiro','title': '英辞郎',}]
+"let eblook_dictlist1 = [{'book': 'c:/eblook/eijiro/','name': 'eijiro','title': '英辞郎',}]
+""     ※ 以下は最初うまく動かなかったときに、ダウンロードしたEPWINGファイルを使って試した設定
+""        データは http://openlab.ring.gr.jp/edict/fpw/#ascii からダウンロード
+""let eblook_dictlist1 = [{'book': 'c:/Vim/ASCDATES/','name': 'ascdates','title': 'アスキー手帳',}]
 
 
 "===============================================================================
