@@ -69,27 +69,21 @@ endif
 
 
 "===============================================================================
-" シンタックスハイライトの設定 (NSIS)
+" シンタックスハイライトの設定
 "===============================================================================
-" 2011-12-01
+
+" NSIS 2011-12-01
 " *.nsh ファイルをNSISでシンタックスハイライト(*.nsiはこの指定がなくてもハイライトされる)
 " 参考: http://q.hatena.ne.jp/1208414020
 autocmd BufNewFile,BufRead *.nsh set filetype=nsis
 
-"===============================================================================
-" シンタックスハイライトの設定 (CMA3000関連)
-"===============================================================================
 " CMA3000のrctext(自動試験)のリモートコマンドスクリプトファイル
 " *.cmd や init をシェルスクリプトの形式として表示する
 au BufRead,BufNewFile *.cmd set filetype=sh
 au BufRead,BufNewFile *.ref set filetype=sh
 au BufRead,BufNewFile *.init set filetype=sh
 
-"===============================================================================
-" シンタックスハイライトの設定 (Markdown)
-"===============================================================================
-" *.md (Markdown) ファイル の Syntax ハイライト
-" 2014-11-11
+" Markdown (*.md) 2014-11-11
 " 参考: http://rcmdnk.github.io/blog/2013/11/17/computer-vim/
 " *.md等のファイルはMarkdownではなく modula2 のものと判断されてしまうので、これを変更する
 "autocmd MyAutoGroup BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
@@ -97,5 +91,8 @@ au BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 " *等はitalic表示になりますが、 これが閉じられないと永遠とitalicが続いてしまうので、
 " italicなハイライトを止めておきたい時は以下を有効にする。
 "autocmd MyAutoGroup FileType markdown hi! def link markdownItalic LineNr
+
+" FlexDCAのマスクファイル(*.mskx) 2017-03-16
+autocmd BufRead,BufNewFile *.mskx set filetype=xml
 
 
