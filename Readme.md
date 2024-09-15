@@ -84,11 +84,12 @@ Vimを起動しフォント設定で「Migu 1M」が選択されていること�
 
 ## ファイルの関連付け
 
-※ 2020-08-01 これは家のPCの最初のセットアップでは実施しなかった。ファイルの関連付けは、右クリック - プログラムから開く - 別のプログラムを選択 し、常にこのアプリを使って .txt を開く をチェックして実施した。
+[右クリック]-[プログラムから開く]-[別のプログラムを選択]で、
+[常にこのアプリを使って .txt を開く]をチェック
 
-**管理者権限で** コマンドプロンプトを開き、
-assocコマンドとftypeコマンドを使って以下のようにする。
+(以下は昔の方法)
 
+**管理者権限で** コマンドプロンプトを開き、assocコマンドとftypeコマンドを使って以下のようにする。
 ```
 >assoc .txt
 .txt=txtfile
@@ -100,11 +101,24 @@ txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 ```
 
+## 右クリックに「Vimを開く」を追加
+
+- regeditを起動
+- コンピュータ > HKEY_CLASSES_ROOT > * > shell に「Vimで開く」キーを作成
+- その下に「command」キーを作成し、値のデータに以下を設定
+```
+"C:\Vim\gvim.exe" "%1"
+```
+
 ## 動作を確認する
 
 - ファイルをダブル・クリックをしたときに新規タブで表示する
 - タブの切替えを、Mozilla Firefox 風にする
 - IME状態に応じたカーソル色を設定 (IME ONで赤くなる.gvimrcで指定)
+
+## ShiftJISからUTF8に変更する (2023-02-06追加)
+C:\Vim\switches\catalog にある utf-8.vim C:\Vim\switches\enabled にコピーする。
+そうするといままで(ShiftJISで)作成されたファイルが文字化けするので、UTF8に変更する。
 
 # NeoBundleとGitによる管理への移行の内容
 
@@ -112,12 +126,6 @@ txtfile="C:\vim\gvim.exe" --remote-tab-silent "%1"
 
 _vimrc  → vimrc  
 _gvimrc → gvimrc  
-
-## 英辞郎の英単語を<c-k>yで引けるようにする
-
-辞書引きツール eblook.exe と、変換済みの辞書データ eijiro フォルダを C:\eblook に作成し、
-eblook.exe がコマンドとして起動できるように PATH変数に C:\eblook を追加する。
-その他詳細はvimrcのeblookのところを参照。
 
 ## カスタマイズして使っているpluginやsyntaxファイル
 
@@ -138,5 +146,4 @@ set runtimepath+=C:\Vim\_runtime
 ## 未実施
 
 - 環境変数の設定
-- vimからRubyスクリプトを実行
-- Rubyのリファレンスを表示
+
